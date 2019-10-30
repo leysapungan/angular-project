@@ -3,16 +3,29 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { CheckListComponent } from './check-list/check-list.component';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
+import { CompTaskComponent } from './comp-task/comp-task.component';
+
+import { FormsModule } from '@angular/forms';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { TaskService } from './task.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CheckListComponent,
+    TaskDetailComponent,
+    CompTaskComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    NgbModule
+    
   ],
-  providers: [],
+  providers: [TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,15 @@
+<h2>Check List</h2>
+<input type="text" [(ngModel)]="taskForm.name">
+<button type="button" (click)="addTask()">Add</button>
+ 
+<br><br>
+<table>
+    <tr *ngFor="let task of getCheckList();">
+        <td><button type="checkbox"></button></td>
+        <td>{{task.name}}</td>
+        <td><button type="button" (click)="delTask(task.id)"> X </button>
+        </td>
+    </tr>
+</table>
+
+
