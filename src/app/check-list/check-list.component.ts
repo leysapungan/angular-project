@@ -29,5 +29,11 @@ export class CheckListComponent implements OnInit {
       return;
     this.taskService.delTask(id);
   }
+
+  compTask(id:number) :void {
+    if(!id)
+      return;
+    this.taskService.compTask(id);
+  }
 }
 

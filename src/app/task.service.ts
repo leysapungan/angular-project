@@ -40,6 +40,9 @@ export class TaskService {
     var idx = this.checklist.findIndex(function (item) {
       return item.id === id;
     });
+    
   }
+
+
 
 }

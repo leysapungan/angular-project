@@ -5,7 +5,7 @@
 <br><br>
 <table>
     <tr *ngFor="let task of getCheckList();">
-        <td><button type="checkbox"></button></td>
+        <td><input type="checkbox" (click)="compTask(task.id)"></td>
         <td>{{task.name}}</td>
         <td><button type="button" (click)="delTask(task.id)"> X </button>
         </td>
