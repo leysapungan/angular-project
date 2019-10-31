@@ -1,1 +1,7 @@
-<p>task-detail works!</p>
+<div *ngIf="task">
+    <div>
+        <label>Title
+            <input [(ngModel)]="task.name">
+        </label>
+    </div>
+</div>
