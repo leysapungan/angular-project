@@ -8,6 +8,7 @@ import { TaskService } from '../task.service';
   styleUrls: ['./check-list.component.css']
 })
 export class CheckListComponent implements OnInit {
+  selectedTask: Task;
 
   constructor(private taskService: TaskService) { }
 
@@ -34,6 +35,10 @@ export class CheckListComponent implements OnInit {
     if(!id)
       return;
     this.taskService.compTask(id);
+  }
+
+  onSelect(task: Task): void {
+    this.selectedTask = task;
   }
 }
 
