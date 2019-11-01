@@ -1,42 +1,12 @@
 
-<!-- <h2>Check List</h2>
-<input type="text" [(ngModel)]="taskForm.name">
-<button type="button" (click)="addTask()">Add</button>
-
-<br><br>
-<table>
-    <div *ngFor="let task of getCheckList();">
-        <tr (click)="onSelect(task)" [class.selected]="task === selectedTask">
-            <td><input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task.id)"></td>
-            <div *ngIf="task.status">
-                <td style="color:gray;">{{task.name}}</td>
-            </div>
-            <div *ngIf="!task.status">
-                <td>{{task.name}}</td>
-            </div>
-        </tr>
-        <div *ngFor="let subTask of task.subTask;" style="margin-left:20px;">
-            <tr>
-                <td><input type="checkbox" [(ngModel)]="subTask.status" (ngModelChange)="compTask(subTask.id)"></td>
-                <div *ngIf="subTask.status">
-                    <td style="color:gray;">{{subTask.name}}</td>
-                </div>
-                <div *ngIf="!subTask.status">
-                    <td>{{subTask.name}}</td>
-                </div>
-            </tr>
-        </div>
-    </div>
-</table>
-
-<app-task-detail [task]="selectedTask"></app-task-detail> -->
-
 <div class="container">
     <div class="row">
         <div class="col">
             <h2>Check List</h2>
-            <input type="text" [(ngModel)]="taskForm.name">
+            Task<br><input type="text" [(ngModel)]="taskForm.name" [value]="inputTask" required><br><br>
+            Description<br><textarea name="desc" cols="60" rows="10" [(ngModel)]="taskForm.desc" [value]="inputDesc"></textarea><br>
             <button type="button" (click)="addTask()">Add</button>
+
 
             <br><br>
             <table>
@@ -88,4 +58,4 @@
         </div>
       </div>
     </div>
-  </div>
+</div>

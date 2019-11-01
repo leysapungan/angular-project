@@ -1,7 +1,7 @@
 <div *ngIf="task">
-    <div>
-        <label>Title
-            <input [(ngModel)]="task.name">
-        </label>
-    </div>
+    Title<br>
+    <input [(ngModel)]="task.name">
+    <br><br>
+    Description<br>
+    <textarea cols="60" rows="10" [(ngModel)]="task.desc"></textarea>
 </div>

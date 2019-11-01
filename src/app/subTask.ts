@@ -3,4 +3,5 @@ export class SubTask {
     pId : number;
     name : string;
     status : boolean;
+    desc : string;
 }

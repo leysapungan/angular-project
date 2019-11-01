@@ -5,4 +5,5 @@ export class Task {
     name : string;
     status : boolean;
     subTask : SubTask[];
+    desc : string;
 }
