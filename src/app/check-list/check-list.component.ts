@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../task';
 import { TaskService } from '../task.service';
-import { SubTask } from '../subTask';
 
 @Component({
   selector: 'app-check-list',
@@ -25,14 +24,14 @@ export class CheckListComponent implements OnInit {
     return this.taskService.getCheckList();
   }
 
-  getSubTasks(): SubTask[] {
-    return this.taskService.getSubTasks();
-  }
+  // getSubTasks(): SubTask[] {
+  //   return this.taskService.getSubTasks();
+  // }
 
-  addTask(): void {
-    this.taskService.addTask(this.taskForm);
-    this.inputTask = '';
-    this.inputDesc = '';
+  addTask(id:number): void {
+    this.taskService.addTask(id);
+    // this.inputTask = '';
+    // this.inputDesc = '';
   }
 
   delTask(id:number) :void {

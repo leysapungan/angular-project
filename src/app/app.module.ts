@@ -10,13 +10,15 @@ import { CompTaskComponent } from './comp-task/comp-task.component';
 import { FormsModule } from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { TaskService } from './task.service';
+import { AddTaskComponent } from './add-task/add-task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CheckListComponent,
     TaskDetailComponent,
-    CompTaskComponent
+    CompTaskComponent,
+    AddTaskComponent
   ],
   imports: [
     BrowserModule,

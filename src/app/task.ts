@@ -1,9 +1,9 @@
-import { SubTask } from './subTask';
 
 export class Task {
     id : number;
+    level : number;
     name : string;
     status : boolean;
-    subTask : SubTask[];
+    subTask : Task[];
     desc : string;
 }

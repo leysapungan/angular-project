@@ -7,8 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'hello Angular';
+  items =[];
 
   navbarOpen = false;
+
+
+  // runMyFuction(item)
 
   toggleNavbar() {
     this.navbarOpen = !this.navbarOpen;
