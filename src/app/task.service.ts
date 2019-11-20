@@ -2,23 +2,111 @@ import { Injectable } from '@angular/core';
 import { Task } from './task';
 
 // var SubList: SubTask[] = [
-var subsubList: Task[] = [
-  {id:1, level:2, name:'Office Setup', status:true, desc:'Description of task 2', subTask:null}
-];
+// var subList3: Task[] = [
+//   {id:1, level:3, name:'Office Setup', status:true, desc:'Description of task 2', subTask:null}
+// ];
 
-var SubList: Task[] = [
-  {id:1, level: 1, name:'Subtask 1', status:false, desc:'This is subtask 1', subTask:subsubList},
-  {id:2, level: 1, name:'Subtask 2', status:false, desc:'This is subtask 2', subTask:null},
-  {id:3, level: 1, name:'Subtask 3', status:false, desc:'This is subtask 3', subTask:null}
-];
+// var subList2: Task[] = [
+//   {id:1, level:2, name:'Office Setup', status:true, desc:'Description of task 2', subTask:subList3}
+// ];
+
+// var SubList: Task[] = [
+//   {id:1, level: 1, name:'Subtask 1', status:false, desc:'This is subtask 1', subTask:subList2},
+//   {id:2, level: 1, name:'Subtask 2', status:false, desc:'This is subtask 2', subTask:null},
+//   {id:3, level: 1, name:'Subtask 3', status:false, desc:'This is subtask 3', subTask:null}
+// ];
+
+// var CheckList: Task[] = [
+//   {id:1, level:0, name:'Basic Project', status:false, desc:'Description of task 1', subTask:SubList},
+//   {id:2, level:0, name:'Office Setup', status:true, desc:'Description of task 2', subTask:null}
+// ];
 
 var CheckList: Task[] = [
-  {id:1, level:0, name:'Basic Project', status:false, desc:'Description of task 1', subTask:SubList},
-  {id:2, level:0, name:'Office Setup', status:true, desc:'Description of task 2', subTask:null}
+  {
+    id:1,
+    level:0,
+    name:'1',
+    status:false,
+    desc:'Description',
+    subTask:[
+      {
+        id:1,
+        level:1,
+        name:'1-1',
+        status:false,
+        desc:'Desc',
+        subTask:[
+          {
+            id:1,
+            level:2,
+            name:'1-1-1',
+            status:true,
+            desc:'Desc',
+            subTask:null
+          },
+          {
+            id:2,
+            level:2,
+            name:'1-1-2',
+            status:false,
+            desc:'Desc',
+            subTask:null
+          },
+          {
+            id:3,
+            level:2,
+            name:'1-1-3',
+            status:false,
+            desc:'Desc',
+            subTask:[
+              {
+                id:1,
+                level:3,
+                name:'1-1-3-1',
+                status:false,
+                desc:'Desc',
+                subTask:null
+              }
+            ]
+          }
+        ]
+      },
+      {
+        id:1,
+        level:1,
+        name:'1-2',
+        status:false,
+        desc:'Desc',
+        subTask:null
+      },
+      {
+        id:2,
+        level:1,
+        name:'1-3',
+        status:false,
+        desc:'Desc',
+        subTask:null
+      }
+    ]
+  },
+  {
+    id:2,
+    level:0,
+    name:'2',
+    status:false,
+    desc:'Desc',
+    subTask:[
+      {
+        id:1,
+        level:1,
+        name:'2-1',
+        status:false,
+        desc:'Desc',
+        subTask:null
+      }
+    ]
+  }
 ];
-
-
-// var CheckList: Task[];
 
 
 @Injectable({
@@ -31,8 +119,7 @@ export class TaskService {
   checklist = CheckList;
   selectedTask: Task;
 
-
-  getCheckList(): Task[] {
+  getCheckList() {
     return this.checklist;
   }
 
@@ -114,30 +201,14 @@ export class TaskService {
       return item.id === id;
     });
 
-    // var subCnt = this.checklist[idx].subTask.length;
-    // for (var i = 0; i < subCnt; i++)
-    // {
-    //   var subIdx = this.subList.findIndex(function (subItem) {
-    //     return subItem.pId === idx;
-    //   });
-    //   this.subList.splice(subIdx, 1);
-    // }
     this.checklist.splice(idx, 1);
   }
 
-  // delSubTask(id:number): void {
-  //   var idx = this.subList.findIndex(function (item) {
-  //     return item.id === id;
-  //   });
-  //   this.subList.splice(idx, 1);
-  // }
-
-  // compTask(id:number) : void {
-  //   var compItem = this.checklist.find(this.findIdx, id);
-  //   var idx = this.checklist.indexOf(compItem);
-  //   this.checklist[idx].status = true;
-  // }
-
+  compTask(id:number) : void {
+    var compItem = this.checklist.find(this.findIdx, id);
+    var idx = this.checklist.indexOf(compItem);
+    this.checklist[idx].status = true;
+  }
 
   findIdx(id) {
     var idx = this.checklist.findIndex(function (item) {

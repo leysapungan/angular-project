@@ -6,15 +6,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'hello Angular';
+  title = 'Check List';
   items =[];
 
-  navbarOpen = false;
 
 
   // runMyFuction(item)
 
-  toggleNavbar() {
-    this.navbarOpen = !this.navbarOpen;
-  }
 }

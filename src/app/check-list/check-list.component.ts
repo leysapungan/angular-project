@@ -10,35 +10,30 @@ import { TaskService } from '../task.service';
 export class CheckListComponent implements OnInit {
   
   selectedTask: Task;
-  inputTask: string;
-  inputDesc: string;
 
   constructor(private taskService: TaskService) { }
 
   ngOnInit() {
   }
+  
 
   taskForm = new Task();
 
-  getCheckList(): Task[] {
-    return this.taskService.getCheckList();
-  }
-
-  // getSubTasks(): SubTask[] {
-  //   return this.taskService.getSubTasks();
+  // getCheckList(): Task[] {
+  //   return this.taskService.getCheckList();
   // }
 
-  addTask(id:number): void {
-    this.taskService.addTask(id);
-    // this.inputTask = '';
-    // this.inputDesc = '';
-  }
+  // addTask(id:number): void {
+  //   this.taskService.addTask(id);
+  //   // this.inputTask = '';
+  //   // this.inputDesc = '';
+  // }
 
-  delTask(id:number) :void {
-    if (!id) 
-      return;
-    this.taskService.delTask(id);
-  }
+  // delTask(id:number) :void {
+  //   if (!id) 
+  //     return;
+  //   this.taskService.delTask(id);
+  // }
 
   // compTask(id:number) :void {
   //   if(!id)
