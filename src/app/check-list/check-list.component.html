@@ -7,105 +7,34 @@
                 Task<br><input type="text" [(ngModel)]="taskForm.name" [value]="inputTask" required><br><br>
             Description<br><textarea name="desc" cols="60" rows="10" [(ngModel)]="taskForm.desc" [value]="inputDesc"></textarea><br>
             <button type="button" (click)="addTask()">Add</button> -->
-
-
+<div class="row">
+<div class="col-8">
 <ng-container *ngTemplateOutlet="checkList;context:{$implicit:this.taskService.getCheckList()}"></ng-container>
 <ng-template #checkList let-list>
     <ul style="list-style-type: none;">
+
         <li *ngFor="let task of list; let i=index">
-                <div *ngIf="task.status">
-                    <div style="color:gray;">
-                        <input type="checkbox" [(ngModel)]="task.status" disabled>
-                        {{task.level}}, {{task.name}}
-                    </div>
+                <div [ngStyle]="{'color':task.status ? 'gray' : 'black' }">
+                    <input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
+                    <a (click)="onSelect(task)">{{task.name}}</a>
+                    <span *ngIf="task.level < 2 || task.level == 2">
+                        <button type="button" (click)="addTask(task)">+</button>
+                    </span>
                 </div>
-                <div *ngIf="!task.status">
-                    <div>
-                        <input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
-                        {{task.level}}, {{task.name}}
-                    </div>
-                </div>
-            <div *ngIf="task.level < 1 || task.level == 1">
+            <div *ngIf="task.level < 2 || task.level == 2">
                 <ng-container *ngTemplateOutlet="checkList;context:{$implicit:task.subTask}"></ng-container>
             </div>
         </li>
     </ul>
 </ng-template>
+<button type="button" (click)="addTask(null)">Add New Task</button>
+</div>
 
-
-            <!-- <br><br>
-            <table>
-                <div *ngFor="let task of getCheckList();">
-                    <tr>
-                        <td><input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task.id)"></td>
-                        <div *ngIf="task.status">
-                            <td style="color:gray;">{{task.name}}</td>
-                        </div>
-                        <div *ngIf="!task.status">
-                            <td (click)="onSelect(task)" [class.selected]="task === selectedTask">
-                                {{task.id}}, {{task.name}}
-                                <button type="button" (click)="addTask(task.id)">+</button>
-                            </td>
-                        </div>
-                    </tr> -->
-                    <!-- 원래 코드 -->
-                    <!-- <div *ngIf="task.subTask">
-                        <div *ngFor="let subTask of task.subTask;" style="margin-left:20px;">
-                            <tr>
-                                <td><input type="checkbox" [(ngModel)]="subTask.status" (ngModelChange)="compTask(subTask.id)"></td>
-                                <div *ngIf="subTask.status">
-                                    <td style="color:gray;">{{subTask.name}}</td>
-                                </div>
-                                <div *ngIf="!subTask.status">
-                                    <td (click)="onSelect(subTask)" [class.selected]="subTask === selectedTask">{{subTask.id}}, {{subTask.name}}
-                                        <button type="button" (click)="addTask(subTask.id)">+</button>
-                                    </td>
-                                </div>
-                            </tr>
-                        </div>
-                    </div>  -->
-
-                    <!-- 작업중 -->
-                    <!-- <div *ngFor="let subTask of task.subTask" style="margin-left:20px;">
-                        <tr>
-                            <td> {{subTask.level}}, {{subTask.id}}, {{subTask.name}}</td>
-                        </tr>
-                        <div *ngFor="let subSubTask of subTask.subTask" style="margin-left:20px;">
-                            <tr>
-                                <td> {{subSubTask.level}}, {{subSubTask.id}}, {{subSubTask.name}}</td>
-                            </tr>
-                        </div>
-                    </div> -->
-
-                <!-- </div>
-            </table>
-            <button type="button" (click)="addTask(0)">New Task</button>
-        </div>
-        <div class="col">
-            <div *ngIf="selectedTask">
-                <app-task-detail [task]="selectedTask"></app-task-detail>
-            </div>
-        </div>
+<div class="col-4">
+    <div *ngIf="selectedTask">
+        <app-task-detail [task]="selectedTask"></app-task-detail>
     </div>
-</div> -->
-
-<!-- <div class="modal" id="taskModal">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Task Name</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <p>Task Description.</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-</div> -->
+</div>
+</div>
 
 

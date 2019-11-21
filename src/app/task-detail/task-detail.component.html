@@ -1,7 +1,21 @@
 <div *ngIf="task">
-    Title<br>
-    <input [(ngModel)]="task.name">
+    <div style="font-weight: bold;">Title</div>
+    {{task.name}}
     <br><br>
-    Description<br>
-    <textarea cols="60" rows="3" [(ngModel)]="task.desc"></textarea>
+    
+    <div style="font-weight: bold;">Level</div>
+    {{task.level}}
+    <br><br>
+    
+    <div style="font-weight: bold;">Status</div>
+    <div *ngIf="!task.status; else finish">
+        Not finished
+    </div>
+    <ng-template #finish>
+        Finish
+    </ng-template>
+    <br><br>
+    
+    <div style="font-weight: bold;">Description</div>
+    {{task.desc}}
 </div>

@@ -1,25 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Task } from './task';
 
-// var SubList: SubTask[] = [
-// var subList3: Task[] = [
-//   {id:1, level:3, name:'Office Setup', status:true, desc:'Description of task 2', subTask:null}
-// ];
-
-// var subList2: Task[] = [
-//   {id:1, level:2, name:'Office Setup', status:true, desc:'Description of task 2', subTask:subList3}
-// ];
-
-// var SubList: Task[] = [
-//   {id:1, level: 1, name:'Subtask 1', status:false, desc:'This is subtask 1', subTask:subList2},
-//   {id:2, level: 1, name:'Subtask 2', status:false, desc:'This is subtask 2', subTask:null},
-//   {id:3, level: 1, name:'Subtask 3', status:false, desc:'This is subtask 3', subTask:null}
-// ];
-
-// var CheckList: Task[] = [
-//   {id:1, level:0, name:'Basic Project', status:false, desc:'Description of task 1', subTask:SubList},
-//   {id:2, level:0, name:'Office Setup', status:true, desc:'Description of task 2', subTask:null}
-// ];
 
 var CheckList: Task[] = [
   {
@@ -72,7 +53,7 @@ var CheckList: Task[] = [
         ]
       },
       {
-        id:1,
+        id:2,
         level:1,
         name:'1-2',
         status:false,
@@ -80,7 +61,7 @@ var CheckList: Task[] = [
         subTask:null
       },
       {
-        id:2,
+        id:3,
         level:1,
         name:'1-3',
         status:false,
@@ -123,8 +104,8 @@ export class TaskService {
     return this.checklist;
   }
 
-  addTask(id:number): void {
-    if(id == 0)
+  addTask(task): void {
+    if(task == null) //Add main task
     {
       var newId;
       if(this.checklist == null || this.checklist.length == 0)
@@ -139,7 +120,7 @@ export class TaskService {
       var newTask = {
         id:newId,
         level:0,
-        name:'Task',
+        name:""+newId,
         status:false,
         subTask:null,
         desc:''
@@ -154,12 +135,9 @@ export class TaskService {
         this.checklist.push(newTask);
       }
     }
-    else {
-      var idx = this.checklist.findIndex(function (item) {
-        return item.id === id;
-      });
-
-      var sub = this.checklist[idx].subTask;
+    else  //Add sub task
+    {
+      var sub = task.subTask;
       var newSubId;
       
       if(sub == null || sub.length == 0)
@@ -168,25 +146,22 @@ export class TaskService {
       }
       else 
       {
-        newSubId = sub.length;
+        newSubId = sub[sub.length-1].id + 1;
       }
 
       var newTask = {
         id:newSubId,
-        level:this.checklist[idx].level+1,
-        name:'Task',
+        level:parseInt(task.level)+1,
+        name:task.name+"-"+newSubId,
         status:false,
         subTask:null,
         desc:''
       };
 
-      debugger;
       if(sub == null || sub.length == 0)
       {
         sub = [newTask];
-        this.checklist[idx].subTask = sub;
-        console.log(this.checklist[idx]);
-
+        task.subTask = sub;
       }
       else 
       {
@@ -196,23 +171,20 @@ export class TaskService {
     }
   }
 
-  delTask(id:number): void {
+  delTask(task): void {
     var idx = this.checklist.findIndex(function (item) {
-      return item.id === id;
+      return item === task;
     });
 
     this.checklist.splice(idx, 1);
   }
 
-  compTask(id:number) : void {
-    var compItem = this.checklist.find(this.findIdx, id);
-    var idx = this.checklist.indexOf(compItem);
-    this.checklist[idx].status = true;
-  }
-
-  findIdx(id) {
-    var idx = this.checklist.findIndex(function (item) {
-      return item.id === id;
-    });
+  compTask(task) : void {
+    if(task.status == true) {
+      task.status = true;
+    } 
+    else {
+      task.status = false;
+    }
   }
 }

@@ -19,33 +19,27 @@ export class CheckListComponent implements OnInit {
 
   taskForm = new Task();
 
-  // getCheckList(): Task[] {
-  //   return this.taskService.getCheckList();
-  // }
+  getCheckList() {
+    return this.taskService.getCheckList();
+  }
 
-  // addTask(id:number): void {
-  //   this.taskService.addTask(id);
-  //   // this.inputTask = '';
-  //   // this.inputDesc = '';
-  // }
+  addTask(task): void {
+    this.taskService.addTask(task);
+  }
 
-  // delTask(id:number) :void {
-  //   if (!id) 
-  //     return;
-  //   this.taskService.delTask(id);
-  // }
+  delTask(task) :void {
+    if (!task) 
+      return;
+    this.taskService.delTask(task);
+  }
 
-  // compTask(id:number) :void {
-  //   if(!id)
-  //     return;
-  //   this.taskService.compTask(id);
-  // }
-
-  // onSelect(task: Task): void {
-  //   this.taskService.onSelect(task);
-  // }
-
-  onSelect(task: Task): void {
+  compTask(task) :void {
+    if(!task)
+      return;
+    this.taskService.compTask(task);
+  }
+  
+  onSelect(task): void {
     this.selectedTask = task;
   }
 }
