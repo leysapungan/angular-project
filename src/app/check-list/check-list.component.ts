@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../task';
 import { TaskService } from '../task.service';
+import { faPlusSquare, faTrashAlt, faEdit } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-check-list',
@@ -9,7 +10,11 @@ import { TaskService } from '../task.service';
 })
 export class CheckListComponent implements OnInit {
   
+  faPlusSquare = faPlusSquare;
+  faTrashAlt = faTrashAlt;
+  faEdit = faEdit;
   selectedTask: Task;
+  chooseLevel = 5;
 
   constructor(private taskService: TaskService) { }
 
@@ -27,10 +32,10 @@ export class CheckListComponent implements OnInit {
     this.taskService.addTask(task);
   }
 
-  delTask(task) :void {
+  delTask(list, task) :void {
     if (!task) 
       return;
-    this.taskService.delTask(task);
+    this.taskService.delTask(list, task);
   }
 
   compTask(task) :void {
@@ -38,7 +43,13 @@ export class CheckListComponent implements OnInit {
       return;
     this.taskService.compTask(task);
   }
-  
+
+  editTask(task) : void {
+    if(!task)
+      return;
+    this.taskService.editTask(task);
+  }
+
   onSelect(task): void {
     this.selectedTask = task;
   }

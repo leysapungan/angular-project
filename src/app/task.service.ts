@@ -167,16 +167,15 @@ export class TaskService {
       {
         sub.push(newTask);
       }
-      console.log(this.checklist);
     }
   }
 
-  delTask(task): void {
-    var idx = this.checklist.findIndex(function (item) {
+  delTask(list, task): void {
+    var idx = list.findIndex(function (item) {
       return item === task;
     });
 
-    this.checklist.splice(idx, 1);
+    list.splice(idx, 1);
   }
 
   compTask(task) : void {
@@ -186,5 +185,9 @@ export class TaskService {
     else {
       task.status = false;
     }
+  }
+
+  editTask(task) : void {
+
   }
 }
