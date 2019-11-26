@@ -13,18 +13,19 @@
   font-size: 18px;
 }
 
-.finishTaskName {
+.finishedTask {
   color: gray;
   text-decoration-line: line-through;
 }
 
-.addBtn, .delBtn, .editBtn {
+
+.addBtn, .delBtn, .editBtn, .saveBtn, .cancelBtn {
   border:none;
   background:none;
   font-size: 12px;
   color: #444544;
 }
 
-.addBtn:hover, .delBtn:hover, .editBtn:hover {
+.addBtn:hover, .delBtn:hover, .editBtn:hover, .saveBtn:hover, .cancelBtn:hover {
   color: black;
 }

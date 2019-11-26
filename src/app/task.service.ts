@@ -168,6 +168,11 @@ export class TaskService {
         sub.push(newTask);
       }
     }
+
+    for (var i in this.checklist)
+    {
+      this.checkParentStatus(this.checklist[i]);
+    }
   }
 
   delTask(list, task): void {
@@ -179,15 +184,72 @@ export class TaskService {
   }
 
   compTask(task) : void {
+    
     if(task.status == true) {
       task.status = true;
     } 
     else {
       task.status = false;
     }
+    
+    if(task.subTask)
+    {
+      this.setChildTask(task.subTask, task);
+    }
+
+    if(task.level != 0)
+    {
+      for (var i in this.checklist)
+      {
+        this.checkParentStatus(this.checklist[i]);
+      }
+    }
   }
 
-  editTask(task) : void {
-
+  setChildTask(subTasks, task)
+  {
+    for (var i in subTasks)
+    {
+      subTasks[i].status = task.status;
+      if(subTasks[i].subTask)
+      {
+        this.compTask(subTasks[i]);
+      }
+    }
   }
+
+  checkParentStatus(task)
+  {
+    var check = 0;
+    for (var i in task.subTask)
+    {
+      if(task.subTask[i].status)
+      {
+        check++;
+      } 
+    }
+
+    if (task.subTask)
+    {
+      if(check == task.subTask.length)
+      {
+        task.status = true;
+      }
+      else
+      {
+        task.status = false;
+        for (var j in task.subTask)
+        {
+          this.checkParentStatus(task.subTask[j]);
+        }
+      }
+    }
+  }
+
+
+  editTask(task, newValue) : void {
+    task.name = newValue;
+    task.editing = false;
+  }
+
 }

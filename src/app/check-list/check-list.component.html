@@ -7,43 +7,60 @@
             Description<br><textarea name="desc" cols="60" rows="10" [(ngModel)]="taskForm.desc" [value]="inputDesc"></textarea><br>
             <button type="button" (click)="addTask()">Add</button> -->
 <div class="row">
-<div class="col-8">
-<ng-container *ngTemplateOutlet="checkList;context:{$implicit:this.taskService.getCheckList()}"></ng-container>
-<ng-template #checkList let-list>
-    <ul style="list-style-type: none;">
+    <div class="col-8">
+        <ng-container *ngTemplateOutlet="checkList;context:{$implicit:this.taskService.getCheckList()}"></ng-container>
+        <ng-template #checkList let-list>
+            <ul style="list-style-type: none;">
+                <li *ngFor="let task of list; let i=index">
+                    
+                    <div class="view" [hidden]="task.editing">
+                        <input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
+                        
+                        <a (click)="onSelect(task)">
+                            <label [ngClass]="{'finishedTask' : task.status === true}">
+                                {{task.name}}
+                            </label>
+                        </a>
 
-        <li *ngFor="let task of list; let i=index">
-            <!-- <div [ngStyle]="{'color':task.status ? 'gray' : 'black' }"> -->
-            <div [ngClass]="{'finishTaskName' : task.status === true}">
-                <input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
-                
-                <a (click)="onSelect(task)"><span class="taskName">{{task.name}}</span></a>
-                
-                <span *ngIf="task.level < chooseLevel">
-                    <button class="addBtn" type="button" (click)="addTask(task)">
-                        <fa-icon [icon]="faPlusSquare"></fa-icon></button>
-                </span>
-                
-                <button class="editBtn" type="button" (click)="editTask(task)">
-                    <fa-icon [icon]="faEdit"></fa-icon></button>
-                <button class="delBtn" type="button" (click)="delTask(list, task)">
-                        <fa-icon [icon]="faTrashAlt"></fa-icon></button>
-            </div>
-        
-            <div *ngIf="task.level < chooseLevel">
-                <ng-container *ngTemplateOutlet="checkList;context:{$implicit:task.subTask}"></ng-container>
-            </div>
-        </li>
-    </ul>
-</ng-template>
-<button type="button" (click)="addTask(null)">Add New Task</button>
-</div>
+                        <span *ngIf="task.level < chooseLevel">
+                            <button class="addBtn" type="button" (click)="addTask(task)">
+                                <fa-icon [icon]="faPlusSquare"></fa-icon></button>
+                        </span>
+                        
+                        <button class="editBtn" type="button" (click)="[task.editing=true, setFocus('updateTask')]">
+                            <fa-icon [icon]="faEdit"></fa-icon></button>
+                        <button class="delBtn" type="button" (click)="delTask(list, task)">
+                                <fa-icon [icon]="faTrashAlt"></fa-icon></button>
+                    </div>
 
-<div class="col-4">
-    <div *ngIf="selectedTask">
-        <app-task-detail [task]="selectedTask"></app-task-detail>
+                    <div class="editing" [hidden]="!task.editing">
+                        <input #updateTask
+                            autofocus=true
+                            [(value)]="task.name"
+                            (keyup.enter)="editTask(task, updateTask.value)"
+                            (keyup.esc)="cancelEditTask(task, updateTask)"
+                            (focusout)="cancelEditTask(task, updateTask)">
+                       
+                        <button class="saveBtn" type="button" (click)="editTask(task, updateTask.value)">
+                            <fa-icon [icon]="faSave"></fa-icon></button>
+                        <button class="cancelBtn" type="button" (click)="cancelEditTask(task, updateTask)">
+                            <fa-icon [icon]="faTimes"></fa-icon></button>
+                    </div>
+                    
+                    <div *ngIf="task.level < chooseLevel">
+                        <ng-container *ngTemplateOutlet="checkList;context:{$implicit:task.subTask}"></ng-container>
+                    </div>
+                </li>
+            </ul>
+        </ng-template>
+        <button type="button" (click)="addTask(null)">Add New Task</button>
     </div>
-</div>
+
+    <div class="col-4">
+        <div *ngIf="selectedTask">
+            <app-task-detail [task]="selectedTask"></app-task-detail>
+        </div>
+    </div>
 </div>
 
 
