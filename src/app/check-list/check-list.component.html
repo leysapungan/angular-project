@@ -40,7 +40,7 @@
                     </div>
                     <div class="editing" [hidden]="!task.editing">
                         <input #updateTask
-                            autofocus=true
+                            autofocus
                             [(value)]="task.name"
                             (keyup.enter)="editTask(task, updateTask.value)"
                             (keyup.esc)="cancelEditTask(task, updateTask)"
