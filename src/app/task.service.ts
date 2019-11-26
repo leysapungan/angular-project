@@ -246,10 +246,11 @@ export class TaskService {
     }
   }
 
-
   editTask(task, newValue) : void {
+    console.log(newValue);
     task.name = newValue;
     task.editing = false;
   }
+
 
 }

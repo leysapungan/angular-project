@@ -18,10 +18,10 @@ export class CheckListComponent implements OnInit {
   faTimes = faTimes;
 
   selectedTask: Task;
-  chooseLevel = 5;
+  chooseLevel = 2;
   
-  @ViewChild('updateTask', {static: false})
-  public  updateTask: ElementRef;
+  // @ViewChild('updateTask', {static: false})
+  // public  updateTask: ElementRef;
   
   constructor(private taskService: TaskService) { }
   ngOnInit() {
@@ -47,10 +47,6 @@ export class CheckListComponent implements OnInit {
     this.taskService.compTask(task);
   }
 
-  setFocus() {
-    this.updateTask.nativeElement.focus();
-  }
-
   editTask(task, newValue) : void {
     if(!task)
       return;
@@ -60,13 +56,33 @@ export class CheckListComponent implements OnInit {
   cancelEditTask(task, inputValue) : void {
     if(!task)
       return;
-    
     inputValue.value = task.name;
     this.taskService.editTask(task, inputValue.value);
   }
 
+  focusOut(event, task, newValue) {
+    if(event.relatedTarget && event.relatedTarget.className === "saveBtn")
+    {
+      this.taskService.editTask(task, newValue);
+    }
+    else
+    {
+      this.taskService.editTask(task, task.name);
+    }
+  }
+
   onSelect(task): void {
     this.selectedTask = task;
+  }
+
+  getLevelValue()
+  {
+    return this.chooseLevel;
+  }
+
+  changeComboBox(value)
+  {
+    this.chooseLevel = value;
   }
 }
 
