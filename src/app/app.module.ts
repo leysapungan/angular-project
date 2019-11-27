@@ -12,7 +12,7 @@ import { TaskService } from './task.service';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+// import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -26,8 +26,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     FormsModule,
     NgbModule,
     FontAwesomeModule,
-    BrowserAnimationsModule,
-    DragDropModule
+    BrowserAnimationsModule
+    // DragDropModule
     
   ],
   providers: [TaskService],

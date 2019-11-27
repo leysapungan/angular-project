@@ -1,6 +1,8 @@
 <h1>{{title}}</h1>
 
-<!-- <app-check-list [(items)]="items" (onAddItem)="runMyFuction(item)"></app-check-list> -->
+<app-check-list 
+    [tasks]="tasklist"
+    (taskChange)="functionsOnChange($event)"
+    (taskStatus)="checkStatus($event)">
+</app-check-list>
 
-
-<app-check-list></app-check-list>

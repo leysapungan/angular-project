@@ -1,8 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task';
-import { TaskService } from '../task.service';
 import { faPlusSquare, faTrashAlt, faEdit, faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
-import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-check-list',
@@ -12,6 +10,10 @@ import { moveItemInArray } from '@angular/cdk/drag-drop';
   
 export class CheckListComponent implements OnInit {
 
+  @Input('tasks') tasklist: any[];
+  @Output('taskChange') taskChange = new EventEmitter();
+  @Output('taskStatus') taskStatus = new EventEmitter();
+  
   faPlusSquare = faPlusSquare;
   faTrashAlt = faTrashAlt;
   faEdit = faEdit;
@@ -21,56 +23,52 @@ export class CheckListComponent implements OnInit {
   selectedTask: Task;
   chooseLevel = 2;
   
-  // @ViewChild('updateTask', {static: false})
-  // public  updateTask: ElementRef;
-  
-  constructor(private taskService: TaskService) { }
+  constructor() { }
   ngOnInit() {
   }
   
   getCheckList() {
-    return this.taskService.getCheckList();
+    return this.tasklist;
   }
 
-  addTask(task): void {
-    this.taskService.addTask(task);
+  changeTasks(task, opt, event) {
+    console.log(event.currentTarget.className);
+    var className = event.currentTarget.className;
+    this.taskChange.emit({task, opt, className});
   }
 
-  delTask(list, task) :void {
-    if (!task) 
-      return;
-    this.taskService.delTask(list, task);
-  }
+  // addTask(task, event): void {
+  //   this.taskChange.emit(task);
+  //   // this.taskService.addTask(task);
+  //   console.log(event);
+  //   debugger;
+  // }
+
+  // delTask(list, task) :void {
+  //   if (!task) 
+  //     return;
+  //   // this.taskService.delTask(list, task);
+  // }
 
   compTask(task) :void {
     if(!task)
       return;
-    this.taskService.compTask(task);
+      this.taskStatus.emit(task);
   }
 
-  editTask(task, newValue) : void {
-    if(!task)
-      return;
-    this.taskService.editTask(task, newValue);
-  }
+  // editTask(task, newValue) : void {
+  //   if(!task)
+  //     return;
+  //   // this.taskService.editTask(task, newValue);
+  // }
 
-  cancelEditTask(task, inputValue) : void {
-    if(!task)
-      return;
-    inputValue.value = task.name;
-    this.taskService.editTask(task, inputValue.value);
-  }
+  // cancelEditTask(task, inputValue) : void {
+  //   if(!task)
+  //     return;
+  //   inputValue.value = task.name;
+  //   // this.taskService.editTask(task, inputValue.value);
+  // }
 
-  focusOut(event, task, newValue) {
-    if(event.relatedTarget && event.relatedTarget.className === "saveBtn")
-    {
-      this.taskService.editTask(task, newValue);
-    }
-    else
-    {
-      this.taskService.editTask(task, task.name);
-    }
-  }
 
   onSelect(task): void {
     this.selectedTask = task;
@@ -84,12 +82,6 @@ export class CheckListComponent implements OnInit {
   changeComboBox(value)
   {
     this.chooseLevel = value;
-  }
-
-  drop(event)
-  {
-    console.log(event);
-    // moveItemInArray(this.taskService.getCheckList(), event.previousIndex, event.currentIndex);
   }
 }
 
