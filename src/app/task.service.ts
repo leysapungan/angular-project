@@ -4,86 +4,156 @@ import { Task } from './task';
 
 var CheckList: Task[] = [
   {
-    id:1,
-    level:0,
-    name:'1',
-    status:false,
-    desc:'Description',
-    subTask:[
+      id:1,
+      level:0,
+      name:'1',
+      status:false,
+      hidden:false,
+      attributes:[
       {
-        id:1,
-        level:1,
-        name:'1-1',
-        status:false,
-        desc:'Desc',
-        subTask:[
+          startDate:'2019/11/01',
+          endDate:'2019/11/05',
+          assignee:['AA','BB']
+      }
+      ],
+      subTask:[
+      {
+          id:1,
+          level:1,
+          name:'1-1',
+          status:false,
+          hidden:false,
+          attributes:[
           {
-            id:1,
-            level:2,
-            name:'1-1-1',
-            status:true,
-            desc:'Desc',
-            subTask:null
-          },
+              startDate:'2019/11/01',
+              endDate:'2019/11/05',
+              assignee:['AA','BB']
+          }
+          ],
+          subTask:[
           {
-            id:2,
-            level:2,
-            name:'1-1-2',
-            status:false,
-            desc:'Desc',
-            subTask:null
-          },
-          {
-            id:3,
-            level:2,
-            name:'1-1-3',
-            status:false,
-            desc:'Desc',
-            subTask:[
+              id:1,
+              level:2,
+              name:'1-1-1',
+              status:true,
+              hidden:false,
+              attributes:[
               {
-                id:1,
-                level:3,
-                name:'1-1-3-1',
-                status:false,
-                desc:'Desc',
-                subTask:null
+                  startDate:'2019/11/01',
+                  endDate:'2019/11/05',
+                  assignee:['AA','BB']
+              }
+              ],
+              subTask:null
+          },
+          {
+              id:2,
+              level:2,
+              name:'1-1-2',
+              status:false,
+              hidden:false,
+              attributes:[
+              {
+                  startDate:'2019/11/01',
+                  endDate:'2019/11/05',
+                  assignee:['AA','BB']
+              }
+              ],
+              subTask:null
+          },
+          {
+              id:3,
+              level:2,
+              name:'1-1-3',
+              status:false,
+              hidden:false,
+              attributes:[
+              {
+                  startDate:'2019/11/01',
+                  endDate:'2019/11/05',
+                  assignee:['AA','BB']
+              }
+              ],
+              subTask:[
+              {
+                  id:1,
+                  level:3,
+                  name:'1-1-3-1',
+                  status:false,
+                  hidden:false,
+                  attributes:[
+                  {
+                      startDate:'2019/11/01',
+                      endDate:'2019/11/05',
+                      assignee:['AA','BB']
+                  }
+                  ],
+                  subTask:null
               }
             ]
           }
         ]
       },
       {
-        id:2,
-        level:1,
-        name:'1-2',
-        status:false,
-        desc:'Desc',
-        subTask:null
+          id:2,
+          level:1,
+          name:'1-2',
+          status:false,
+          hidden:false,
+          attributes:[
+          {
+              startDate:'2019/11/01',
+              endDate:'2019/11/05',
+              assignee:['AA','BB']
+          }
+          ],
+          subTask:null
       },
       {
-        id:3,
-        level:1,
-        name:'1-3',
-        status:false,
-        desc:'Desc',
-        subTask:null
+          id:3,
+          level:1,
+          name:'1-3',
+          status:false,
+          hidden:false,
+          attributes:[
+          {
+              startDate:'2019/11/01',
+              endDate:'2019/11/05',
+              assignee:['AA','BB']
+          }
+          ],
+          subTask:null
       }
     ]
   },
-  {
-    id:2,
-    level:0,
-    name:'2',
-    status:false,
-    desc:'Desc',
-    subTask:[
       {
-        id:1,
-        level:1,
-        name:'2-1',
-        status:false,
-        desc:'Desc',
-        subTask:null
+      id:2,
+      level:0,
+      name:'2',
+      status:false,
+      hidden:false,
+      attributes:[
+      {
+          startDate:'2019/11/01',
+          endDate:'2019/11/05',
+          assignee:['AA','BB']
+      }
+      ],
+      subTask:[
+      {
+          id:1,
+          level:1,
+          name:'2-1',
+          status:false,
+          hidden:false,
+          attributes:[
+          {
+              startDate:'2019/11/01',
+              endDate:'2019/11/05',
+              assignee:['AA','BB']
+          }
+          ],
+          subTask:null
       }
     ]
   }
@@ -122,8 +192,15 @@ export class TaskService {
         level:0,
         name:""+newId,
         status:false,
+        hidden:false,
+        attributes:[
+          {
+            startDate:null,
+            endDate:null,
+            assignee:null
+          }
+        ],
         subTask:null,
-        desc:''
       };
       
       if(this.checklist == null || this.checklist.length == 0)
@@ -154,8 +231,15 @@ export class TaskService {
         level:parseInt(task.level)+1,
         name:task.name+"-"+newSubId,
         status:false,
-        subTask:null,
-        desc:''
+        hidden:false,
+        attributes:[
+          {
+            startDate:null,
+            endDate:null,
+            assignee:null
+          }
+        ],
+        subTask:null
       };
 
       if(sub == null || sub.length == 0)
