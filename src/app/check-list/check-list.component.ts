@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef, Input } from '@angular/core';
 import { Task } from '../task';
 import { TaskService } from '../task.service';
 import { faPlusSquare, faTrashAlt, faEdit, faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-check-list',
@@ -83,6 +84,12 @@ export class CheckListComponent implements OnInit {
   changeComboBox(value)
   {
     this.chooseLevel = value;
+  }
+
+  drop(event)
+  {
+    console.log(event);
+    // moveItemInArray(this.taskService.getCheckList(), event.previousIndex, event.currentIndex);
   }
 }
 
