@@ -12,13 +12,15 @@ import { TaskService } from './task.service';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ShowTableComponent } from './show-table/show-table.component';
 // import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
     AppComponent,
     CheckListComponent,
-    TaskDetailComponent
+    TaskDetailComponent,
+    ShowTableComponent
   ],
   imports: [
     BrowserModule,
