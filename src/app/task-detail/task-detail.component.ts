@@ -14,4 +14,13 @@ export class TaskDetailComponent implements OnInit {
   ngOnInit() {
   }
 
+  getAttr(task)
+  {
+    debugger;
+    var attr = task.attributes;
+    var assignee = attr.assignee;
+
+    console.log(assignee);
+  }
+
 }
