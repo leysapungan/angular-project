@@ -19,6 +19,7 @@ export class CheckListComponent implements OnInit {
   faEdit = faEdit;
   faSave = faSave;
   faTimes = faTimes;
+  
 
   selectedTask: Task;
   chooseLevel = 2;

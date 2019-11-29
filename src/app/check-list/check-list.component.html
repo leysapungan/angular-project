@@ -15,10 +15,8 @@
     <div class="col-8">
         <ng-container *ngTemplateOutlet="checkList;context:{$implicit:getCheckList()}"></ng-container>
             <ng-template #checkList let-list>
-            
                 <ul style="list-style-type: none;">
                     <li *ngFor="let task of list; let i=index">
-                        
                         <div class="view" [hidden]="task.editing">
                             <input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
                             
@@ -56,7 +54,6 @@
                         </div>
                     </li>
                 </ul>
-           
         </ng-template>
         <button type="button" class="addMainBtn" (click)="changeTasks(null, null, $event)">Add New Task</button>
     </div>

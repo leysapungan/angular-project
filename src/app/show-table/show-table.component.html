@@ -1,1 +1,64 @@
-<p>show-table works!</p>
+<div class="comboBox">
+        Choose level : 
+        <select class="chooseLevel" (change)="changeComboBox($event.target.value)" [(ngModel)]="chooseLevel">
+            <option value="0">Level 0</option>
+            <option value="1">Level 1</option>
+            <option value="2">Level 2</option>
+            <option value="3">Level 3</option>
+            <option value="4">Level 4</option>
+            <option value="5">Level 5</option>
+        </select>
+    </div>
+    <br>
+
+<table mdbTable mdbTableScroll scrollX="true" maxWidth="400">
+    <thead>
+        <tr>
+        <th *ngFor="let head of tableHead" scope="col">{{head}} </th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <ng-container *ngTemplateOutlet="checkList; context:{$implicit:tasklist}"></ng-container>
+
+        <ng-template #checkList let-list>
+            <ng-container *ngFor="let task of list;">
+                <tr mdbTableCol [ngClass]="{'finishedTaskCol' : task.status === true}">
+                    <td id="checkListData">
+                        <div>
+                            <ng-container *ngFor="let arrow of arrayArrow(task.level); let i = index;">
+                                &nbsp;&nbsp;
+                                <ng-container *ngIf="i == task.level-1">
+                                    <fa-icon [icon]="faCaretRight"></fa-icon>
+                                </ng-container>
+                            </ng-container>
+                            
+                            <input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
+                            <label [ngClass]="{'finishedTask' : task.status === true}">
+                                {{task.name}}
+                            </label>
+                        </div>
+                    </td>
+                    <td>
+                        <span *ngIf="task.level < 5">
+                            <button class="addBtn" type="button" (click)="changeTasks(task, null, $event)">
+                                <fa-icon [icon]="faPlusSquare"></fa-icon></button>
+                        </span>
+                        
+                        <button class="editBtn" type="button" (click)="task.editing=true">
+                            <fa-icon [icon]="faEdit"></fa-icon></button>
+                        <button class="delBtn" type="button" (click)="changeTasks(task, list, $event)">
+                            <fa-icon [icon]="faTrashAlt"></fa-icon></button>
+                    </td>
+                    <td>{{task.attributes[0].startDate}}</td>
+                    <td>{{task.attributes[0].endDate}}</td>
+                    <td>{{task.attributes[0].assignee}}</td>
+                </tr>
+                <ng-template [ngIf]="task.subTask && task.level < 5">
+                    <ng-container *ngTemplateOutlet="checkList; context:{$implicit:task.subTask}">&nbsp;</ng-container>
+                </ng-template>
+            </ng-container>
+        </ng-template>
+    </tbody>
+                
+</table>

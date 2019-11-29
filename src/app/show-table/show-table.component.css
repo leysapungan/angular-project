@@ -1,0 +1,28 @@
+table {
+    margin: 20px;
+}
+
+th, tr, td {
+    border: 1px solid black;
+    text-align: center;
+    
+}
+
+td {
+    min-width: 150px;
+}
+
+#checkListData {
+    min-width: 300px;
+    text-align: left;
+}
+
+.finishedTask {
+    color: gray;
+    text-decoration-line: line-through;
+}
+
+.finishedTaskCol {
+    color: gray;
+    background-color: rgb(216, 216, 216);
+}

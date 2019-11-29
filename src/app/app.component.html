@@ -1,8 +1,29 @@
 <h1>{{title}}</h1>
 
-<app-check-list 
-    [tasks]="tasklist"
-    (taskChange)="functionsOnChange($event)"
-    (taskStatus)="checkStatus($event)">
-</app-check-list>
+
+    <!-- <div class="row">
+        <div class="col-6">
+            <app-check-list 
+                [tasks]="tasklist"
+                (taskChange)="functionsOnChange($event)"
+                (taskStatus)="checkStatus($event)">
+            </app-check-list>
+        </div>
+    
+        <div class="col-6">
+            <app-show-table
+                [tasks]="tasklist"
+                (taskChange)="functionsOnChange($event)"
+                (taskStatus)="checkStatus($event)">
+            </app-show-table>
+        </div>
+    </div> -->
+
+    <app-show-table
+        [tasks]="tasklist"
+        (taskChange)="functionsOnChange($event)"
+        (taskStatus)="checkStatus($event)">
+    </app-show-table>
+
+
 
