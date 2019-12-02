@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { faPlusSquare, faTrashAlt, faEdit, faSave, faTimes, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { faPlusSquare, faTrashAlt, faEdit, faSave, faTimes, faCaretRight, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -19,8 +19,16 @@ export class ShowTableComponent implements OnInit {
   faSave = faSave;
   faTimes = faTimes;
   faCaretRight = faCaretRight;
+  faCalendarAlt = faCalendarAlt;
 
   chooseLevel = 2;
+
+  editIdx = 0;
+  editName = 1;
+  editStartDate = 2;
+  editEndDate = 3;
+  editAssignee = 4;
+
   
   constructor() { }
 
@@ -61,4 +69,62 @@ export class ShowTableComponent implements OnInit {
       return;
       this.taskStatus.emit(task);
   }
+
+  dbClick(task) {
+    console.log("Double click ||" , task);
+    task.editing = true;
+  }
+
+
+  dbClickDate(task, opt) 
+  {
+    
+    task.editing = !task.editing;
+    this.setEditing(task, this.tasklist);
+
+    if(opt == 'start')
+    {
+      this.editIdx = this.editStartDate;
+    }
+    else
+    {
+      this.editIdx = this.editEndDate;
+    }
+   
+  }
+
+
+  setEditing(task, list)
+  {
+    for (var i=0; i < list.length; i++)
+    {
+      if(task !== list[i])
+      {
+        list[i].editing = false;
+      }
+
+      var tmpTask = list[i];
+      if(tmpTask.subTask)
+      {
+        this.setEditing(task, tmpTask.subTask);
+      }
+    }
+  }
+
+
+  onDateSelect(task, opt, event) {
+    var date = event.year + "-" + event.month + "-" + event.day;
+    if(opt == 'start')
+    {
+      task.attributes[0].startDate = date;
+    }
+    else
+    {
+      task.attributes[0].endDate = date;
+    }
+    this.editIdx = 0;
+    task.editing = false;
+  }
+
+
 }

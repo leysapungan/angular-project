@@ -11,8 +11,8 @@ var CheckList: Task[] = [
       hidden:false,
       attributes:[
       {
-          startDate:'2019/11/01',
-          endDate:'2019/11/05',
+          startDate:'2019-11-01',
+          endDate:'2019-11-05',
           assignee:['AA','BB']
       }
       ],
@@ -25,8 +25,8 @@ var CheckList: Task[] = [
           hidden:false,
           attributes:[
           {
-              startDate:'2019/11/01',
-              endDate:'2019/11/05',
+              startDate:'2019-11-01',
+              endDate:'2019-11-05',
               assignee:['AA','BB']
           }
           ],
@@ -39,8 +39,8 @@ var CheckList: Task[] = [
               hidden:false,
               attributes:[
               {
-                  startDate:'2019/11/01',
-                  endDate:'2019/11/05',
+                  startDate:'2019-11-01',
+                  endDate:'2019-11-05',
                   assignee:['AA','BB']
               }
               ],
@@ -54,8 +54,8 @@ var CheckList: Task[] = [
               hidden:false,
               attributes:[
               {
-                  startDate:'2019/11/01',
-                  endDate:'2019/11/05',
+                  startDate:'2019-11-01',
+                  endDate:'2019-11-05',
                   assignee:['AA','BB']
               }
               ],
@@ -69,8 +69,8 @@ var CheckList: Task[] = [
               hidden:false,
               attributes:[
               {
-                  startDate:'2019/11/01',
-                  endDate:'2019/11/05',
+                  startDate:'2019-11-01',
+                  endDate:'2019-11-05',
                   assignee:['AA','BB']
               }
               ],
@@ -83,8 +83,8 @@ var CheckList: Task[] = [
                   hidden:false,
                   attributes:[
                   {
-                      startDate:'2019/11/01',
-                      endDate:'2019/11/05',
+                      startDate:'2019-11-01',
+                      endDate:'2019-11-05',
                       assignee:['AA','BB']
                   }
                   ],
@@ -102,8 +102,8 @@ var CheckList: Task[] = [
           hidden:false,
           attributes:[
           {
-              startDate:'2019/11/01',
-              endDate:'2019/11/05',
+              startDate:'2019-11-01',
+              endDate:'2019-11-05',
               assignee:['AA','BB']
           }
           ],
@@ -117,8 +117,8 @@ var CheckList: Task[] = [
           hidden:false,
           attributes:[
           {
-              startDate:'2019/11/01',
-              endDate:'2019/11/05',
+              startDate:'2019-11-01',
+              endDate:'2019-11-05',
               assignee:['AA','BB']
           }
           ],
@@ -134,8 +134,8 @@ var CheckList: Task[] = [
       hidden:false,
       attributes:[
       {
-          startDate:'2019/11/01',
-          endDate:'2019/11/05',
+          startDate:'2019-11-01',
+          endDate:'2019-11-05',
           assignee:['AA','BB']
       }
       ],
@@ -148,8 +148,8 @@ var CheckList: Task[] = [
           hidden:false,
           attributes:[
           {
-              startDate:'2019/11/01',
-              endDate:'2019/11/05',
+              startDate:'2019-11-01',
+              endDate:'2019-11-05',
               assignee:['AA','BB']
           }
           ],
@@ -322,11 +322,12 @@ export class TaskService {
       else
       {
         task.status = false;
-        for (var j in task.subTask)
-        {
-          this.checkParentStatus(task.subTask[j]);
-        }
-      }
+        // for (var j in task.subTask)
+        // {
+        //   this.checkParentStatus(task.subTask[j]);
+        // }
+        this.checkParentStatus(task.subTask);
+      }   
     }
   }
 
