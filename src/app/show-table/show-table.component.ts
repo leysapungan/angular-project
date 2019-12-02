@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faPlusSquare, faTrashAlt, faEdit, faSave, faTimes, faCaretRight, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
+import { NgbDateParserFormatter, NgbDateStruct, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -28,6 +29,8 @@ export class ShowTableComponent implements OnInit {
   editStartDate = 2;
   editEndDate = 3;
   editAssignee = 4;
+
+  dateModel;
 
   
   constructor() { }
@@ -76,11 +79,12 @@ export class ShowTableComponent implements OnInit {
   }
 
 
-  dbClickDate(task, opt) 
+  dbClickDate(task, opt, date) 
   {
     
-    task.editing = !task.editing;
+    task.editing = true;
     this.setEditing(task, this.tasklist);
+    this.dateModel = this.setDate(date);
 
     if(opt == 'start')
     {
@@ -111,6 +115,21 @@ export class ShowTableComponent implements OnInit {
     }
   }
 
+  setDate(dateStr)
+  {
+    if(!dateStr || dateStr == '')
+    {
+      return null;
+    }
+
+    var date = dateStr.trim().split('-');
+    const newDate: NgbDateStruct = {year: parseInt(date[0]), month: parseInt(date[1]), day: parseInt(date[2])}
+    if(!newDate)
+      return null;
+
+    return newDate;
+  }
+
 
   onDateSelect(task, opt, event) {
     var date = event.year + "-" + event.month + "-" + event.day;
@@ -128,3 +147,5 @@ export class ShowTableComponent implements OnInit {
 
 
 }
+
+

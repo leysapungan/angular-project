@@ -26,3 +26,14 @@ td {
     color: gray;
     background-color: rgb(216, 216, 216);
 }
+
+.addBtn, .delBtn, .editBtn, .saveBtn, .cancelBtn {
+    border:none;
+    background:none;
+    font-size: 16px;
+    color: #444544;
+  }
+  
+  .addBtn:hover, .delBtn:hover, .editBtn:hover, .saveBtn:hover, .cancelBtn:hover {
+    color: black;
+  }

@@ -52,36 +52,40 @@
                                     <fa-icon [icon]="faPlusSquare"></fa-icon></button>
                             </span>
                             
-                            <button class="editBtn" type="button" (click)="task.editing=true">
-                                <fa-icon [icon]="faEdit"></fa-icon></button>
+                            <!-- <button class="editBtn" type="button" (click)="task.editing=true">
+                                <fa-icon [icon]="faEdit"></fa-icon></button> -->
                             <button class="delBtn" type="button" (click)="changeTasks(task, list, $event)">
                                 <fa-icon [icon]="faTrashAlt"></fa-icon></button>
                         </td>
 
                         <!-- ===================================== -->
-                        <td (dblclick)="dbClickDate(task, 'start')">
+                        <td (dblclick)="dbClickDate(task, 'start', task.attributes[0].startDate)">
                             <div class="view" *ngIf="!task.editing || (editIdx != editStartDate)">
                                 {{task.attributes[0].startDate}}
                             </div>
                             <div class="editing" *ngIf="task.editing && (editIdx == editStartDate)">
 
                                 <input type="text" style="width:70%" 
-                                    [readonly]=true [(value)]="task.attributes[0].startDate" 
-                                    ngbDatepicker (dateSelect)="onDateSelect(task, 'start', $event)" #d="ngbDatepicker"/>
+                                    [readonly]=true [(ngModel)]="dateModel" 
+                                    ngbDatepicker 
+                                    [maxDate]="setDate(task.attributes[0].endDate)"
+                                    (dateSelect)="onDateSelect(task, 'start', $event)" #d="ngbDatepicker"/>
                                 <button (click)="d.toggle()"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
 
                             </div>
                         </td>
 
-                        <td (dblclick)="dbClickDate(task, 'end')">
+                        <td (dblclick)="dbClickDate(task, 'end', task.attributes[0].endDate)">
                             <div class="view" *ngIf="!task.editing || (editIdx != editEndDate)">
                                 {{task.attributes[0].endDate}}
                             </div>
                             <div class="editing" *ngIf="task.editing && (editIdx == editEndDate)">
 
                                 <input type="text" style="width:70%" 
-                                    [readonly]=true [(value)]="task.attributes[0].endDate" 
-                                    ngbDatepicker (dateSelect)="onDateSelect(task, 'end', $event)" #d="ngbDatepicker"/>
+                                    [readonly]=true [(ngModel)]="dateModel" 
+                                    ngbDatepicker 
+                                    [minDate]="setDate(task.attributes[0].startDate)"
+                                    (dateSelect)="onDateSelect(task, 'end', $event)" #d="ngbDatepicker"/>
                                 <button (click)="d.toggle()"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
 
                             </div>
