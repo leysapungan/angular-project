@@ -1,16 +1,24 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
+import { ShowTableComponent } from './show-table/show-table.component';
+
+import { RouterModule } from '@angular/router';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
+
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule
+        RouterModule,FormsModule,FontAwesomeModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,ShowTableComponent
       ],
+      
     }).compileComponents();
   }));
 
@@ -20,16 +28,17 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular-project-new'`, () => {
+  it(`should have as title 'Check List'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('angular-project-new');
+    
+    expect(app.title).toEqual('Check List');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('angular-project-new app is running!');
+    expect(compiled.querySelector('h1').textContent).toContain('Check List');
   });
 });
