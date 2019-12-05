@@ -1,0 +1,27 @@
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Edit Assignee</h4>
+      <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+          <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <input type="text" #newName 
+        [disabled]="assigneeList.length > 5 || assigneeList.length == 5"
+        (keyup.enter)="[addNewName(newName.value), newName.value='']">
+      <button (click)="[addNewName(newName.value), newName.value='']" [disabled]="modalTask.length > 2">Add</button>
+      <br><br>
+      <ul style="list-style-type: none;" *ngIf="assigneeList">
+        <li *ngFor="let assignee of assigneeList; let i=index">
+          {{assignee}}
+          <button class="delBtn" type="button" (click)="deleteName(assignee)">
+              <!-- <fa-icon [icon]="faTimes"></fa-icon> -->
+            X</button>
+        </li>
+      </ul>
+
+    </div>
+    
+    <div class="modal-footer">
+              <button type="button" class="btn btn-outline-dark" (click)="onSave(modalTask, assigneeList)">Save</button>
+    </div>
+  

@@ -11,6 +11,7 @@ import { faPlusSquare, faTrashAlt, faEdit, faSave, faTimes } from '@fortawesome/
 export class CheckListComponent implements OnInit {
 
   @Input('tasks') tasklist: any[];
+  @Input ('chooseLevel') chooseLevel;
   @Output('taskChange') taskChange = new EventEmitter();
   @Output('taskStatus') taskStatus = new EventEmitter();
   
@@ -22,7 +23,7 @@ export class CheckListComponent implements OnInit {
   
 
   selectedTask: Task;
-  chooseLevel = 2;
+  // chooseLevel = 2;
   
   constructor() { }
   ngOnInit() {
@@ -80,9 +81,9 @@ export class CheckListComponent implements OnInit {
     return this.chooseLevel;
   }
 
-  changeComboBox(value)
-  {
-    this.chooseLevel = value;
-  }
+  // changeComboBox(value)
+  // {
+  //   this.chooseLevel = value;
+  // }
 }
 

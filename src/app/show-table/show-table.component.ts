@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { faPlusSquare, faTrashAlt, faEdit, faSave, faTimes, faCaretRight, faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-import { NgbDateParserFormatter, NgbDateStruct, NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDateStruct, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { ModalViewComponent } from '../modal-view/modal-view.component';
 
 
 @Component({
@@ -11,8 +13,10 @@ import { NgbDateParserFormatter, NgbDateStruct, NgbDate } from '@ng-bootstrap/ng
 export class ShowTableComponent implements OnInit {
 
   @Input('tasks') tasklist: any[];
+  @Input ('chooseLevel') chooseLevel;
   @Output('taskChange') taskChange = new EventEmitter();
   @Output('taskStatus') taskStatus = new EventEmitter();
+  
 
   faPlusSquare = faPlusSquare;
   faTrashAlt = faTrashAlt;
@@ -22,7 +26,7 @@ export class ShowTableComponent implements OnInit {
   faCaretRight = faCaretRight;
   faCalendarAlt = faCalendarAlt;
 
-  chooseLevel = 2;
+  // chooseLevel = 2;
 
   editIdx = 0;
   editName = 1;
@@ -32,8 +36,10 @@ export class ShowTableComponent implements OnInit {
 
   dateModel;
 
+  result: object;
+
   
-  constructor() { }
+  constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
   }
@@ -55,16 +61,27 @@ export class ShowTableComponent implements OnInit {
     return this.chooseLevel;
   }
 
-  changeComboBox(value)
-  {
-    this.chooseLevel = value;
-  }
+  // changeComboBox(value)
+  // {
+  //   this.chooseLevel = value;
+  // }
 
 
   changeTasks(task, opt, event) {
-    console.log(event.currentTarget.className);
-    var className = event.currentTarget.className;
+    console.log(event.type);
+    var className="";
+    if(!event.type)
+    {
+      className = event;
+    }
+    else
+    {
+      className = event.currentTarget.className;
+    }
+    
     this.taskChange.emit({task, opt, className});
+    task.editing = false;
+    this.editIdx = 0;
   }
 
   compTask(task) :void {
@@ -73,9 +90,12 @@ export class ShowTableComponent implements OnInit {
       this.taskStatus.emit(task);
   }
 
-  dbClick(task) {
-    console.log("Double click ||" , task);
+
+  /* Edit - Double Click */
+  dbClickName(task) {
     task.editing = true;
+    this.setEditing(task, this.tasklist);
+    this.editIdx = this.editName;
   }
 
 
@@ -96,6 +116,29 @@ export class ShowTableComponent implements OnInit {
     }
    
   }
+
+  dbClickAssignee(task)
+  {
+    task.editing = true;
+    this.setEditing(task, this.tasklist);
+    this.editIdx = this.editAssignee;
+  }
+
+  openModalView(task)
+  {
+    const modalRef = this.modalService.open(ModalViewComponent);
+    modalRef.componentInstance.modalTask = task;
+
+    modalRef.result.then((result) => {
+        console.log("result : ", result);
+        task.attributes[0].assignee = result;
+        console.log(task.attributes[0].assignee);
+    }).catch((error) => {
+        console.log("error : ", error);
+    });
+  }
+
+
 
 
   setEditing(task, list)
@@ -144,8 +187,6 @@ export class ShowTableComponent implements OnInit {
     this.editIdx = 0;
     task.editing = false;
   }
-
-
 }
 
 

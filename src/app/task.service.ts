@@ -253,6 +253,7 @@ export class TaskService {
       }
     }
 
+    console.log(this.checklist);
     for (var i in this.checklist)
     {
       this.checkParentStatus(this.checklist[i]);
@@ -304,6 +305,7 @@ export class TaskService {
 
   checkParentStatus(task)
   {
+    console.log("checkParentStatus:", task.name, task.status);
     var check = 0;
     for (var i in task.subTask)
     {
@@ -313,6 +315,7 @@ export class TaskService {
       } 
     }
 
+    console.log("check : ", check);
     if (task.subTask)
     {
       if(check == task.subTask.length)
@@ -322,11 +325,10 @@ export class TaskService {
       else
       {
         task.status = false;
-        // for (var j in task.subTask)
-        // {
-        //   this.checkParentStatus(task.subTask[j]);
-        // }
-        this.checkParentStatus(task.subTask);
+        for (var j in task.subTask)
+        {
+          this.checkParentStatus(task.subTask[j]);
+        }
       }   
     }
   }

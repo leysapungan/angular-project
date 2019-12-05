@@ -1,6 +1,6 @@
 <div class="CheckList-Table">
 
-    <div class="comboBox">
+    <!-- <div class="comboBox">
         Choose level : 
         <select class="chooseLevel" (change)="changeComboBox($event.target.value)" [(ngModel)]="chooseLevel">
             <option value="0">Level 0</option>
@@ -11,7 +11,7 @@
             <option value="5">Level 5</option>
         </select>
     </div>
-    <br><br>
+    <br><br> -->
 
     <button type="button" class="addMainBtn" (click)="changeTasks(null, null, $event)">Add New Task</button>
     <br><br>
@@ -29,21 +29,36 @@
             <ng-template #checkList let-list>
                 <ng-container *ngFor="let task of list;">
                     <tr mdbTableCol [ngClass]="{'finishedTaskCol' : task.status === true}">
-                        <td id="checkListData" (dblclick)="dbClick(task)">
+                        <td id="checkListData" (dblclick)="dbClickName(task)">
 
-                            <!-- Display arrow and space if subtask -->
-                            <ng-container *ngFor="let arrow of arrayArrow(task.level); let i = index;">
-                                &nbsp;&nbsp;
-                                <ng-container *ngIf="i == task.level-1">
-                                    <fa-icon [icon]="faCaretRight"></fa-icon>
+                            <div class="view" *ngIf="!task.editing || (editIdx != editName)">
+                                <!-- Display arrow and space if subtask -->
+                                <ng-container *ngFor="let arrow of arrayArrow(task.level); let i = index;">
+                                    &nbsp;&nbsp;
+                                    <ng-container *ngIf="i == task.level-1">
+                                        <fa-icon [icon]="faCaretRight"></fa-icon>
+                                    </ng-container>
+                                    &nbsp;
                                 </ng-container>
-                                &nbsp;
-                            </ng-container>
-                            
-                            <input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
-                            <label [ngClass]="{'finishedTask' : task.status === true}">
-                                {{task.name}}
-                            </label>
+
+                                <input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
+                                <label [ngClass]="{'finishedTask' : task.status === true}">
+                                    {{task.name}}
+                                </label>
+                            </div>
+
+                            <div class="editing" *ngIf="task.editing && (editIdx == editName)">
+                                <input #updateTask
+                                    autofocus
+                                    [(value)]="task.name"
+                                    (keyup.enter)="changeTasks(task, updateTask.value, 'saveBtn')"
+                                    (keyup.esc)="task.editing=false;editIdx = 0">
+
+                                <button class="saveBtn" type="button" (click)="changeTasks(task, updateTask.value, $event)">
+                                    <fa-icon [icon]="faSave"></fa-icon></button>
+                                <button class="cancelBtn" type="button" (click)="task.editing=false;editIdx = 0">
+                                    <fa-icon [icon]="faTimes"></fa-icon></button>
+                            </div>
                         </td>
                         <td>
                             <!-- Hide add button, if lastest level -->
@@ -58,7 +73,6 @@
                                 <fa-icon [icon]="faTrashAlt"></fa-icon></button>
                         </td>
 
-                        <!-- ===================================== -->
                         <td (dblclick)="dbClickDate(task, 'start', task.attributes[0].startDate)">
                             <div class="view" *ngIf="!task.editing || (editIdx != editStartDate)">
                                 {{task.attributes[0].startDate}}
@@ -90,8 +104,13 @@
 
                             </div>
                         </td>
-                        <td>{{task.attributes[0].assignee}}</td>
+                        <td (dblclick)="openModalView(task)">
+                            <!-- <div class="view" *ngIf="!task.editing || (editIdx != editAssignee)"> -->
+                                {{task.attributes[0].assignee}}
+                            <!-- </div> -->
+                        </td>
                     </tr>
+
                     <!-- For subTasks -->
                     <ng-template [ngIf]="task.subTask && task.level < getLevelValue()">
                         <ng-container *ngTemplateOutlet="checkList; context:{$implicit:task.subTask}">&nbsp;</ng-container>
