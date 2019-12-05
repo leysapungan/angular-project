@@ -2,10 +2,12 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task';
 import { faPlusSquare, faTrashAlt, faEdit, faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
 
+import { TaskService } from '../task.service';
 @Component({
   selector: 'app-check-list',
   templateUrl: './check-list.component.html',
-  styleUrls: ['./check-list.component.css']
+  styleUrls: ['./check-list.component.css'],
+  providers: [TaskService]
 })
   
 export class CheckListComponent implements OnInit {
