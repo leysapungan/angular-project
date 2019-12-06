@@ -1,7 +1,7 @@
 <div class="CheckList-Table">
 
     <!-- <div class="comboBox">
-        Choose level : 
+        Choose level :
         <select class="chooseLevel" (change)="changeComboBox($event.target.value)" [(ngModel)]="chooseLevel">
             <option value="0">Level 0</option>
             <option value="1">Level 1</option>
@@ -16,7 +16,7 @@
     <button type="button" class="addMainBtn" (click)="changeTasks(null, null, $event)">Add New Task</button>
     <br><br>
 
-    <table mdbTable mdbTableScroll scrollX="true">
+    <table mdbTable mdbTableScroll scrollX="true" class="table table-bordered">
         <thead>
             <tr>
             <th *ngFor="let head of tableHead" scope="col">{{head}} </th>
@@ -41,8 +41,8 @@
                                     &nbsp;
                                 </ng-container>
 
-                                <input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
-                                <label [ngClass]="{'finishedTask' : task.status === true}">
+                                <input class="customCheckBox" type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
+                                <label class="align-middle m-0" [ngClass]="{'finishedTask' : task.status === true}">
                                     {{task.name}}
                                 </label>
                             </div>
@@ -50,38 +50,40 @@
                             <div class="editing" *ngIf="task.editing && (editIdx == editName)">
                                 <input #updateTask
                                     autofocus
+                                    class="customTextbox"
                                     [(value)]="task.name"
                                     (keyup.enter)="changeTasks(task, updateTask.value, 'saveBtn')"
                                     (keyup.esc)="task.editing=false;editIdx = 0">
 
                                 <button class="saveBtn" type="button" (click)="changeTasks(task, updateTask.value, $event)">
-                                    <fa-icon [icon]="faSave"></fa-icon></button>
+                                    <fa-icon class="fa-fw align-middle" [icon]="faSave"></fa-icon></button>
                                 <button class="cancelBtn" type="button" (click)="task.editing=false;editIdx = 0">
-                                    <fa-icon [icon]="faTimes"></fa-icon></button>
+                                    <fa-icon class="fa-fw align-middle" [icon]="faTimes"></fa-icon></button>
                             </div>
                         </td>
                         <td>
                             <!-- Hide add button, if lastest level -->
                             <span *ngIf="task.level < getLevelValue()">
                                 <button class="addBtn" type="button" (click)="changeTasks(task, null, $event)">
-                                    <fa-icon [icon]="faPlusSquare"></fa-icon></button>
+                                    <fa-icon class="fa-fw align-middle" [icon]="faPlusSquare"></fa-icon></button>
                             </span>
-                            
+
                             <!-- <button class="editBtn" type="button" (click)="task.editing=true">
-                                <fa-icon [icon]="faEdit"></fa-icon></button> -->
+                                <fa-icon class="fa-fw align-middle" [icon]="faEdit"></fa-icon></button> -->
                             <button class="delBtn" type="button" (click)="changeTasks(task, list, $event)">
-                                <fa-icon [icon]="faTrashAlt"></fa-icon></button>
+                                <fa-icon class="fa-fw align-middle" [icon]="faTrashAlt"></fa-icon></button>
                         </td>
 
                         <td (dblclick)="dbClickDate(task, 'start', task.attributes[0].startDate)">
-                            <div class="view" *ngIf="!task.editing || (editIdx != editStartDate)">
+                            <span class="view align-middle" *ngIf="!task.editing || (editIdx != editStartDate)">
                                 {{task.attributes[0].startDate}}
-                            </div>
+                            </span>
                             <div class="editing" *ngIf="task.editing && (editIdx == editStartDate)">
 
-                                <input type="text" style="width:70%" 
-                                    [readonly]=true [(ngModel)]="dateModel" 
-                                    ngbDatepicker 
+                                <input type="text" style="width:70%"
+                                    class="customTextbox"
+                                    [readonly]=true [(ngModel)]="dateModel"
+                                    ngbDatepicker
                                     [maxDate]="setDate(task.attributes[0].endDate)"
                                     (dateSelect)="onDateSelect(task, 'start', $event)" #d="ngbDatepicker"/>
                                 <button (click)="d.toggle()"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
@@ -90,14 +92,15 @@
                         </td>
 
                         <td (dblclick)="dbClickDate(task, 'end', task.attributes[0].endDate)">
-                            <div class="view" *ngIf="!task.editing || (editIdx != editEndDate)">
+                            <span class="view align-middle" *ngIf="!task.editing || (editIdx != editEndDate)">
                                 {{task.attributes[0].endDate}}
-                            </div>
+                            </span>
                             <div class="editing" *ngIf="task.editing && (editIdx == editEndDate)">
 
-                                <input type="text" style="width:70%" 
-                                    [readonly]=true [(ngModel)]="dateModel" 
-                                    ngbDatepicker 
+                                <input type="text" style="width:70%"
+                                    class="customTextbox"
+                                    [readonly]=true [(ngModel)]="dateModel"
+                                    ngbDatepicker
                                     [minDate]="setDate(task.attributes[0].startDate)"
                                     (dateSelect)="onDateSelect(task, 'end', $event)" #d="ngbDatepicker"/>
                                 <button (click)="d.toggle()"><fa-icon [icon]="faCalendarAlt"></fa-icon></button>
@@ -106,7 +109,7 @@
                         </td>
                         <td (dblclick)="openModalView(task)">
                             <!-- <div class="view" *ngIf="!task.editing || (editIdx != editAssignee)"> -->
-                                {{task.attributes[0].assignee}}
+                                <span class="align-middle">{{task.attributes[0].assignee}}</span>
                             <!-- </div> -->
                         </td>
                     </tr>
@@ -118,7 +121,7 @@
 
                 </ng-container>
             </ng-template>
-        </tbody>           
+        </tbody>
     </table>
 
 </div>

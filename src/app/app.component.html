@@ -9,13 +9,17 @@
   <router-outlet></router-outlet>
 </div> -->
 
-<button class="checkListBtn" type="button" (click)="showComponent = 0">Check List</button>
-<button class="showTableBtn" type="button" (click)="showComponent = 1">Table</button>
-<button class="showGanttBtn" type="button" (click)="showComponent = 2">Gantt Chart</button>
+<div class="container">
+
+  <div class="my-4">
+    <button class="checkListBtn btn btn-primary mr-3" type="button" (click)="showComponent = 0">Check List</button>
+    <button class="showTableBtn btn btn-primary mr-3" type="button" (click)="showComponent = 1">Table</button>
+    <button class="showGanttBtn btn btn-primary" type="button" (click)="showComponent = 2">Gantt Chart</button>
+  </div>
 
 
-<div class="comboBox">
-    Choose level : 
+  <div class="comboBox mb-4">
+    Choose level :
     <select class="chooseLevel" (change)="changeComboBox($event.target.value)" [(ngModel)]="chooseLevel">
         <option value="0">Level 0</option>
         <option value="1">Level 1</option>
@@ -24,43 +28,42 @@
         <option value="4">Level 4</option>
         <option value="5">Level 5</option>
     </select>
-</div>
-<br><br>
+  </div>
 
-
-<div class = "showCheckList" *ngIf="showComponent == 0">
-    <app-check-list 
-        [tasks]="tasklist"
-        [chooseLevel]="chooseLevel"
-        (taskChange)="functionsOnChange($event)"
-        (taskStatus)="checkStatus($event)">
+  <div class = "showCheckList" *ngIf="showComponent == 0">
+    <app-check-list
+      [tasks]="tasklist"
+      [chooseLevel]="chooseLevel"
+      (taskChange)="functionsOnChange($event)"
+      (taskStatus)="checkStatus($event)">
     </app-check-list>
-</div>
+  </div>
 
-<div class = "showTable" *ngIf = "showComponent == 1">
+  <div class = "showTable" *ngIf = "showComponent == 1">
     <app-show-table
-        [tasks]="tasklist"
-        [chooseLevel]="chooseLevel"
-        (taskChange)="functionsOnChange($event)"
-        (taskStatus)="checkStatus($event)">
+      [tasks]="tasklist"
+      [chooseLevel]="chooseLevel"
+      (taskChange)="functionsOnChange($event)"
+      (taskStatus)="checkStatus($event)">
     </app-show-table>
-</div>
+  </div>
 
-<div class = "showGantt" *ngIf = "showComponent == 2">
-
+  <div class = "showGantt" *ngIf = "showComponent == 2">
+    <app-show-gantt></app-show-gantt>
+  </div>
 </div>
 <!-- <h1>{{title}}</h1> -->
 
 
     <!-- <div class="row">
         <div class="col-6">
-            <app-check-list 
+            <app-check-list
                 [tasks]="tasklist"
                 (taskChange)="functionsOnChange($event)"
                 (taskStatus)="checkStatus($event)">
             </app-check-list>
         </div>
-    
+
         <div class="col-6">
             <app-show-table
                 [tasks]="tasklist"

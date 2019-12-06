@@ -20,12 +20,77 @@
 
 
 .addBtn, .delBtn, .editBtn, .saveBtn, .cancelBtn {
-  border:none;
-  background:none;
-  font-size: 12px;
-  color: #444544;
+  border: 1px solid black;
+  background: none;
+  outline: none;
+  padding: 4px;
+  font-size: 14px;
+  line-height: 0.8;
+  margin: 0 3px;
+  border-radius: 4px;
+}
+
+.addBtn, .saveBtn {
+  color: cornflowerblue;
+}
+.editBtn {
+  color: seagreen;
+}
+.delBtn, .cancelBtn {
+  color: crimson;
 }
 
 .addBtn:hover, .delBtn:hover, .editBtn:hover, .saveBtn:hover, .cancelBtn:hover {
   color: black;
+}
+
+/*Custom checkbox CSS*/
+.customCheckBox[type="checkbox"] {
+  height: 15px;
+  width: 15px;
+  position: relative;
+  vertical-align: middle;
+  margin: 0 3px;
+  cursor: pointer;
+}
+
+.customCheckBox[type="checkbox"]:before {
+  content: "";
+  display: block;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background: #FFF;
+  width: 15px;
+  height: 15px;
+}
+
+.customCheckBox[type="checkbox"]:checked:before {
+  border: 1px solid #41B883;
+}
+
+.customCheckBox[type="checkbox"]:checked:after {
+  content: '\2713';
+  display: block;
+  color: #41B883;
+  font-size: 24px;
+  font-weight: 700;
+  top: -5px;
+  left: 1px;
+  line-height: 0.8;
+  position: absolute;
+}
+
+/*Custom textbox CSS*/
+.customTextbox {
+  border-top: 0;
+  border-right: 0;
+  border-bottom: 1px solid black;
+  border-left: 0;
+  outline: 0;
+  padding: 0 0 0 5px;
+  background: transparent;
+}
+
+.customTextbox:focus {
+  font-size: 12px;
 }
