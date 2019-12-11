@@ -254,10 +254,9 @@ export class TaskService {
       }
     }
 
-    console.log(this.checklist);
     for (var i in this.checklist)
     {
-      this.checkParentStatus(this.checklist[i]);
+      this.checkParentStatus(this.checklist[i], this.checklist[i].status);
     }
   }
 
@@ -287,7 +286,7 @@ export class TaskService {
     {
       for (var i in this.checklist)
       {
-        this.checkParentStatus(this.checklist[i]);
+        this.checkParentStatus(this.checklist[i], task.status);
       }
     }
   }
@@ -304,9 +303,9 @@ export class TaskService {
     }
   }
 
-  checkParentStatus(task)
+  checkParentStatus(task, origStatus)
   {
-    console.log("checkParentStatus:", task.name, task.status);
+    console.log("checkParentStatus:", task.name, task.status, origStatus);
     var check = 0;
     for (var i in task.subTask)
     {
@@ -325,14 +324,54 @@ export class TaskService {
       }
       else
       {
-        task.status = false;
+        
         for (var j in task.subTask)
         {
-          this.checkParentStatus(task.subTask[j]);
+          this.checkParentStatus(task.subTask[j], origStatus);
         }
       }   
     }
   }
+
+  /* */
+  // checkParentStatus(list, tmp)
+  // {
+  //   list.forEach(function iter(item) {
+  //     if(item.subTask)
+  //     {
+  //       var inputCheckBox = (item).closest(".children").siblings("input[type=checkbox]");
+  //     }
+  //     item.subTask && item.subTask.forEach(iter);
+  //   });
+  // }
+
+  // decideParentsValue(me) {
+  //   var shouldTraverseUp = false;
+  //   var checkedCount = 0;
+  //   var myValue = me.status;
+
+  //   //inspect my siblings to decide parents value
+  //   $.each($(me).closest(".children").children('li'), function() {
+  //     var checkbox = $(this).children("input[type=checkbox]");
+  //     if ($(checkbox).prop("checked")) {
+  //       checkedCount = checkedCount + 1;
+  //     }
+  //   });
+
+  //   //if I am checked and my siblings are also checked do nothing
+  //   //OR
+  //   //if I am unchecked and my any sibling is checked do nothing
+  //   if ((myValue == true && checkedCount == 1) || (myValue == false && checkedCount == 0)) {
+  //     shouldTraverseUp = true;
+  //   }
+  //   if (shouldTraverseUp == true) {
+  //     var inputCheckBox = $(me).closest(".children").siblings("input[type=checkbox]");
+  //     inputCheckBox.prop("checked", me.prop("checked"));
+  //     decideParentsValue(inputCheckBox);
+  //   }
+
+  // }
+/* */
 
   editTask(task, newValue) : void {
     console.log(newValue);

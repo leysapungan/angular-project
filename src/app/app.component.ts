@@ -11,7 +11,7 @@ export class AppComponent {
   title = 'Check List';
   public tasklist: any[] = [];
 
-  showComponent:number = 0;
+  showComponent:number = 1;
   chooseLevel = 2;
 
   constructor(private taskService: TaskService){

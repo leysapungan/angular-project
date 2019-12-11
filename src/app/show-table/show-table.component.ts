@@ -132,12 +132,10 @@ export class ShowTableComponent implements OnInit {
     modalRef.result.then((result) => {
         console.log("result : ", result);
         task.attributes[0].assignee = result;
-        console.log(task.attributes[0].assignee);
     }).catch((error) => {
         console.log("error : ", error);
     });
   }
-
 
 
 

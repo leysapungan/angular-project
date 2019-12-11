@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
       <input type="text" #newName 
-        [disabled]="assigneeList.length > 5 || assigneeList.length == 5"
+        [disabled]="assigneList && (assigneeList.length > 5 || assigneeList.length == 5)"
         (keyup.enter)="[addNewName(newName.value), newName.value='']">
       <button (click)="[addNewName(newName.value), newName.value='']" [disabled]="modalTask.length > 2">Add</button>
       <br><br>
