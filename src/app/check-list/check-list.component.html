@@ -1,5 +1,5 @@
 <!-- <div class="comboBox">
-    Choose level : 
+    Choose level :
     <select class="chooseLevel" (change)="changeComboBox($event.target.value)" [(ngModel)]="chooseLevel">
         <option value="0">Level 0</option>
         <option value="1">Level 1</option>
@@ -17,20 +17,20 @@
             <ng-template #checkList let-list>
                 <ul style="list-style-type: none;">
                     <li *ngFor="let task of list; let i=index">
-                        <div class="view" [hidden]="task.editing">
-                            <input type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
-                            
+                        <div class="view mb-4" [hidden]="task.editing">
+                            <input class="customCheckBox" type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
+
                             <a (click)="onSelect(task)">
-                                <label [ngClass]="{'finishedTask' : task.status === true}">
+                                <label class="my-0 mx-2 align-middle" [ngClass]="{'finishedTask' : task.status === true}">
                                     {{task.name}}
                                 </label>
                             </a>
-    
+
                             <span *ngIf="task.level < getLevelValue()">
                                 <button class="addBtn" type="button" (click)="changeTasks(task, null, $event)">
                                     <fa-icon [icon]="faPlusSquare"></fa-icon></button>
                             </span>
-                            
+
                             <button class="editBtn" type="button" (click)="task.editing=true">
                                 <fa-icon [icon]="faEdit"></fa-icon></button>
                             <button class="delBtn" type="button" (click)="changeTasks(task, list, $event)">
@@ -39,16 +39,17 @@
                         <div class="editing" [hidden]="!task.editing">
                             <input #updateTask
                                 autofocus
+                                class="customTextbox mb-4"
                                 [(value)]="task.name"
                                 (keyup.enter)="changeTasks(task, updateTask.value, $event)"
                                 (keyup.esc)="task.editing=false">
-    
+
                             <button class="saveBtn" type="button" (click)="changeTasks(task, updateTask.value, $event)">
                                 <fa-icon [icon]="faSave"></fa-icon></button>
                             <button class="cancelBtn" type="button" (click)="task.editing=false">
                                 <fa-icon [icon]="faTimes"></fa-icon></button>
                         </div>
-                        
+
                         <div *ngIf="task.level < getLevelValue()">
                             <ng-container *ngTemplateOutlet="checkList;context:{$implicit:task.subTask}"></ng-container>
                         </div>
