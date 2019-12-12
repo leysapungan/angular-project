@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { BeautifulChartsModule } from 'ngx-beautiful-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { ShowTableComponent } from './show-table/show-table.component';
 import { ModalViewComponent } from './modal-view/modal-view.component';
 import { ShowGanttComponent } from './show-gantt/show-gantt.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { ShowGanttComponent } from './show-gantt/show-gantt.component';
     FormsModule,
     NgbModule,
     FontAwesomeModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    BeautifulChartsModule
     
   ],
   providers: [TaskService, NgbActiveModal],
