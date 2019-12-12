@@ -1,13 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 
+import { TaskService } from '../task.service';
+
 @Component({
   selector: 'app-show-gantt',
   templateUrl: './show-gantt.component.html',
   styleUrls: ['./show-gantt.component.css']
 })
 export class ShowGanttComponent implements OnInit {
+  public tasklist: any[] = [];
 
-  constructor() { }
+  constructor(private taskService: TaskService) {
+    this.tasklist = this.taskService.getCheckList();
+  }
 
   ganttChartData = [
     {
@@ -74,6 +79,24 @@ export class ShowGanttComponent implements OnInit {
   ];
 
   ngOnInit() {
+    const list = this.tasklist;
+
+
+    for (const key in list) {
+      // 1st Level
+      for (const key2 in list[key]) {
+        // 2nd Level
+        for(const key3 in list[key][key2]){
+          // 3rd level
+          for(const key4 in list[key][key2][key3]){
+            // 4th level
+            console.log(key, key2, list[key][key2][key3]);
+          }
+        }
+      }
+    }
+
+    // console.log(list);
   }
 
 }

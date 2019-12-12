@@ -41,7 +41,7 @@ var CheckList: Task[] = [
               attributes:[
               {
                   startDate:'2019-11-01',
-                  endDate:'2019-11-05',
+                  endDate:'2019-11-10',
                   assignee:['AA','BB']
               }
               ],
@@ -55,8 +55,8 @@ var CheckList: Task[] = [
               hidden:false,
               attributes:[
               {
-                  startDate:'2019-11-01',
-                  endDate:'2019-11-05',
+                  startDate:'2019-11-10',
+                  endDate:'2019-11-13',
                   assignee:['AA','BB']
               }
               ],
@@ -70,8 +70,8 @@ var CheckList: Task[] = [
               hidden:false,
               attributes:[
               {
-                  startDate:'2019-11-01',
-                  endDate:'2019-11-05',
+                  startDate:'2019-11-13',
+                  endDate:'2019-11-14',
                   assignee:['AA','BB']
               }
               ],
@@ -84,8 +84,8 @@ var CheckList: Task[] = [
                   hidden:false,
                   attributes:[
                   {
-                      startDate:'2019-11-01',
-                      endDate:'2019-11-05',
+                      startDate:'2019-11-15',
+                      endDate:'2019-11-20',
                       assignee:['AA','BB']
                   }
                   ],
@@ -103,8 +103,8 @@ var CheckList: Task[] = [
           hidden:false,
           attributes:[
           {
-              startDate:'2019-11-01',
-              endDate:'2019-11-05',
+              startDate:'2019-11-20',
+              endDate:'2019-11-25',
               assignee:['AA','BB']
           }
           ],
@@ -118,8 +118,8 @@ var CheckList: Task[] = [
           hidden:false,
           attributes:[
           {
-              startDate:'2019-11-01',
-              endDate:'2019-11-05',
+              startDate:'2019-11-30',
+              endDate:'2019-11-10',
               assignee:['AA','BB']
           }
           ],
