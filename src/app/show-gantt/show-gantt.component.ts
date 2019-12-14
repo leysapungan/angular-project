@@ -33,16 +33,19 @@ export class ShowGanttComponent implements OnInit {
               // Third Level
               if(list[i].subTask[i2].subTask){
                 list[i].subTask[i2].subTask.forEach(function(obj, i3){
-                  const firstLevelAttr = list[i].attributes[0].startDate;
-                  const secondLevelAttr = list[i].subTask[i2].attributes[0].startDate;
-                  const thirdLevelAttr = list[i].subTask[i2].subTask[i3].attributes[0].startDate;
-
                   
+                  // TODO: for reference of the object
+                  // const firstLevelAttr = list[i].attributes[0].startDate;
+                  // const secondLevelAttr = list[i].subTask[i2].attributes[0].startDate;
+                  // const thirdLevelAttr = list[i].subTask[i2].subTask[i3].attributes[0].startDate;
+
+                  // prep up assignee, taskname, startDate and endDate for generated object
                   let assignee = JSON.stringify(list[i].attributes[0].assignee);
                   let taskName = JSON.stringify(list[i].name);
                   let startDate = list[i].attributes[0].startDate;
                   let endDate = list[i].attributes[0].endDate;
 
+                  // TODO: reassign if it is onn the deeper level of the object
                   // if(list[i].subTask){
 
                   //   let assignee = JSON.stringify(list[i].subTask[i2].attributes[0].assignee);
@@ -58,6 +61,7 @@ export class ShowGanttComponent implements OnInit {
                   //   let endDate = list[i].subTask[i2].subTask[i3].attributes[0].endDate;
                   // }
 
+                  // generates object
                   let data = {
                     name: assignee,
                     timelines: {
@@ -67,8 +71,8 @@ export class ShowGanttComponent implements OnInit {
                     }
                   }
 
+                  // TODO: Uncomment this to echo the data that is generated.
                   // console.log(data);
-                  
 
                 });
               } else{
