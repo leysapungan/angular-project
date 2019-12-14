@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Task } from '../task';
 import { TaskService } from '../task.service';
 
 @Component({
@@ -18,65 +18,69 @@ export class ShowGanttComponent implements OnInit {
 
 
   ngOnInit() {
-    const list = this.tasklist;
+    let list = this.tasklist;
+    let ganttChartData = this.ganttChartData;
+    let assignee, taskName = "";
+    let startDate, endDate;
 
     fetchAllData();
+
+    function toTimestamp(strDate){
+      return Date.parse(strDate);
+    }
+
+    function putInData(taskName, assignee, startDate, endDate){
+      let data = {
+        name: assignee,
+        timelines: {
+          [taskName] : [
+            {from: startDate, to: endDate, info: 'wtv'}
+          ]
+        }
+      }
+
+      return data
+    }
     
     function fetchAllData(){
       // First Level
       list.forEach(function(obj, i){
+        taskName = JSON.stringify(list[i].name);
+        assignee = JSON.stringify(list[i].attributes[0].assignee);
+        startDate = list[i].attributes[0].startDate;
+        endDate = list[i].attributes[0].endDate;
+
+        let firstLevelData = putInData(taskName, assignee, startDate, endDate);
         
+        ganttChartData.push(firstLevelData);
+
           // Second Level
           if(list[i].subTask){
             list[i].subTask.forEach(function(obj, i2){
 
+              assignee = JSON.stringify(list[i].subTask[i2].attributes[0].assignee);
+              taskName = JSON.stringify(list[i].subTask[i2].name);
+              startDate = list[i].subTask[i2].attributes[0].startDate;
+              endDate = list[i].subTask[i2].attributes[0].endDate;
+
+              let secondLevelData = putInData(taskName, assignee, startDate, endDate);
+        
+              ganttChartData.push(secondLevelData);
+
               // Third Level
               if(list[i].subTask[i2].subTask){
                 list[i].subTask[i2].subTask.forEach(function(obj, i3){
-                  
-                  // TODO: for reference of the object
-                  // const firstLevelAttr = list[i].attributes[0].startDate;
-                  // const secondLevelAttr = list[i].subTask[i2].attributes[0].startDate;
-                  // const thirdLevelAttr = list[i].subTask[i2].subTask[i3].attributes[0].startDate;
 
-                  // prep up assignee, taskname, startDate and endDate for generated object
-                  let assignee = JSON.stringify(list[i].attributes[0].assignee);
-                  let taskName = JSON.stringify(list[i].name);
-                  let startDate = list[i].attributes[0].startDate;
-                  let endDate = list[i].attributes[0].endDate;
+                  assignee = JSON.stringify(list[i].subTask[i2].attributes[0].assignee);
+                  taskName = JSON.stringify(list[i].subTask[i2].name);
+                  startDate = list[i].subTask[i2].subTask[i3].attributes[0].startDate;
+                  endDate = list[i].subTask[i2].subTask[i3].attributes[0].endDate;
 
-                  // TODO: reassign if it is onn the deeper level of the object
-                  // if(list[i].subTask){
-
-                  //   let assignee = JSON.stringify(list[i].subTask[i2].attributes[0].assignee);
-                  //   let taskName = JSON.stringify(list[i].subTask[i2].name);
-                  //   let startDate = list[i].subTask[i2].attributes[0].startDate;
-                  //   let endDate = list[i].subTask[i2].attributes[0].endDate;
-
-                  // } else if(list[i].subTask[i2].subTask){
-
-                  //   let assignee = JSON.stringify(list[i].subTask[i2].attributes[0].assignee);
-                  //   let taskName = JSON.stringify(list[i].subTask[i2].name);
-                  //   let startDate = list[i].subTask[i2].subTask[i3].attributes[0].startDate;
-                  //   let endDate = list[i].subTask[i2].subTask[i3].attributes[0].endDate;
-                  // }
-
-                  // generates object
-                  let data = {
-                    name: assignee,
-                    timelines: {
-                      [taskName] : [
-                        {from: startDate, to: endDate, info: 'wtv'}
-                      ]
-                    }
-                  }
-
-                  // TODO: Uncomment this to echo the data that is generated.
-                  // console.log(data);
+                  let thirdLevelData = putInData(taskName, assignee, startDate, endDate);
+        
+                  ganttChartData.push(thirdLevelData);
 
                 });
-              } else{
-                  console.log("No Third Level");
               }
     
             });
