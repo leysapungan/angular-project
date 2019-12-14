@@ -14,89 +14,76 @@ export class ShowGanttComponent implements OnInit {
     this.tasklist = this.taskService.getCheckList();
   }
 
-  ganttChartData = [
-    {
-      name: 'Market Team',
-      timelines: {
-        'Market Research': [
-          {from: 'June 9, 2019', to: 'July 20, 2019', info: 'wtv'},
-          {from: 'October 9, 2019', to: 'November 20, 2019', info: 'wtv'}
-        ],
-        'User Documentation': [
-          {from: 'August 10, 2019', to: 'September 15, 2019', info: 'wtv'}
-        ]
-      }
-    },
-    {
-      name: 'Development Team',
-      timelines: {
-        'Software Development': [
-          {from: 'July 9, 2019', to: 'October 20, 2019', info: 'wtv'}
-        ],
-        'Testing': [
-          {from: 'October 25, 2019', to: 'November 15, 2019', info: 'wtv'}
-        ],
-        'User Documentation': [
-          {from: 'August 1, 2019', to: 'August 15, 2019', info: 'wtv'}
-        ]
-      }
-    },
-    {
-      name: 'Test Team A',
-      timelines: {
-        'Testing': [
-          {from: 'August 1, 2019', to: 'August 15, 2019', info: 'wtv'}
-        ]
-      }
-    },
-    {
-      name: 'Test Team B',
-      timelines: {
-        'Testing': [
-          {from: 'August 15, 2019', to: 'August 30, 2019', info: 'wtv'}
-        ]
-      }
-    },
-    {
-      name: 'Sales Team',
-      timelines: {
-        'Pitching': [
-          {from: 'July 9, 2019', to: 'October 20, 2019', info: 'wtv'}
-        ],
-        'Sales': [
-          {from: 'October 25, 2019', to: 'November 15, 2019', info: 'wtv'}
-        ]
-      }
-    },
-    {
-      name: 'Planning Team',
-      timelines: {
-        'Planning': [
-          {from: 'May 9, 2019', to: 'May 30, 2019', info: 'wtv'}
-        ]
-      }
-    }
-  ];
+  ganttChartData = [];
+
 
   ngOnInit() {
     const list = this.tasklist;
 
+    fetchAllData();
+    
+    function fetchAllData(){
+      // First Level
+      list.forEach(function(obj, i){
+        
+          // Second Level
+          if(list[i].subTask){
+            list[i].subTask.forEach(function(obj, i2){
 
-    for (const key in list) {
-      // 1st Level
-      for (const key2 in list[key]) {
-        // 2nd Level
-        for(const key3 in list[key][key2]){
-          // 3rd level
-          for(const key4 in list[key][key2][key3]){
-            // 4th level
-            console.log(key, key2, list[key][key2][key3]);
-          }
-        }
-      }
+              // Third Level
+              if(list[i].subTask[i2].subTask){
+                list[i].subTask[i2].subTask.forEach(function(obj, i3){
+                  const firstLevelAttr = list[i].attributes[0].startDate;
+                  const secondLevelAttr = list[i].subTask[i2].attributes[0].startDate;
+                  const thirdLevelAttr = list[i].subTask[i2].subTask[i3].attributes[0].startDate;
+
+                  
+                  let assignee = JSON.stringify(list[i].attributes[0].assignee);
+                  let taskName = JSON.stringify(list[i].name);
+                  let startDate = list[i].attributes[0].startDate;
+                  let endDate = list[i].attributes[0].endDate;
+
+                  // if(list[i].subTask){
+
+                  //   let assignee = JSON.stringify(list[i].subTask[i2].attributes[0].assignee);
+                  //   let taskName = JSON.stringify(list[i].subTask[i2].name);
+                  //   let startDate = list[i].subTask[i2].attributes[0].startDate;
+                  //   let endDate = list[i].subTask[i2].attributes[0].endDate;
+
+                  // } else if(list[i].subTask[i2].subTask){
+
+                  //   let assignee = JSON.stringify(list[i].subTask[i2].attributes[0].assignee);
+                  //   let taskName = JSON.stringify(list[i].subTask[i2].name);
+                  //   let startDate = list[i].subTask[i2].subTask[i3].attributes[0].startDate;
+                  //   let endDate = list[i].subTask[i2].subTask[i3].attributes[0].endDate;
+                  // }
+
+                  let data = {
+                    name: assignee,
+                    timelines: {
+                      [taskName] : [
+                        {from: startDate, to: endDate, info: 'wtv'}
+                      ]
+                    }
+                  }
+
+                  // console.log(data);
+                  
+
+                });
+              } else{
+                  console.log("No Third Level");
+              }
+    
+            });
+          } 
+        });
+
     }
-
-    // console.log(list);
+    
   }
+
+   
+    
 
 }
