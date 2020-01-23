@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TaskDetailComponent } from '../task-detail/task-detail.component';
 import { TaskService } from '../task.service';
+import { Task } from '../task';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CheckListComponent', () => {
   let component: CheckListComponent;
@@ -12,7 +14,7 @@ describe('CheckListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports:[FormsModule,FontAwesomeModule
+      imports:[FormsModule,FontAwesomeModule, RouterTestingModule
       ],
 
       declarations: [ CheckListComponent , TaskDetailComponent
@@ -37,6 +39,19 @@ describe('CheckListComponent', () => {
     let chooselevel= fixture.debugElement.injector.get(TaskService);
     fixture.detectChanges();
     expect(chooselevel.checklist).toBeTruthy(TaskService);
+  });
+
+  // example of a test of a component function which emits an event
+  it('changeTask should emit the task passed into it', () =>{
+    let app = fixture.debugElement.componentInstance;
+    spyOn(component.taskChange, 'emit').and.stub();
+    const event = { currentTarget: {
+      className: 'ggg'
+    }};
+    const task = new Task();
+    task.name = 'new name';
+    component.changeTasks(task, null, event);
+    expect(component.taskChange.emit).toHaveBeenCalledWith({task: task, opt: null, className: 'ggg'});
   });
  
 });

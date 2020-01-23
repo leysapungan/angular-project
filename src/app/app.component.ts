@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TaskService } from './task.service';
 
-import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +22,6 @@ export class AppComponent implements OnInit {
   }
 
   functionsOnChange(event) {
-    console.log(event);
     switch(event.className)
     {
       case "addBtn":
@@ -62,5 +60,6 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit(){ }
+
 
 }

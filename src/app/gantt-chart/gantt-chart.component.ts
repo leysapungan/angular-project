@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, ViewEncapsulation, Output, EventEmitter } from '@angular/core';
 import * as d3 from 'd3';
+import { Task } from '../task';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class GanttChartComponent implements OnInit{
   @ViewChild('chart', {static:false}) private chartContainer: ElementRef;
   
   @Input ('header') header;
-  @Input ('task') task;
+  @Input ('task') task =  new Task();
 
   @Output('minDate') minDate = new EventEmitter();
   @Output('maxDate') maxDate = new EventEmitter();
@@ -110,13 +111,20 @@ export class GanttChartComponent implements OnInit{
 
       function dragging() {        
 
-        if(d3.select(this).classed("left") && d3.event.x < deltaX + deltaW)
+        var minDay = d3.timeDay(new Date(task.attributes[0].minDate));
+        var maxDay = d3.timeDay(new Date(task.attributes[0].maxDate));
+
+        if(d3.select(this).classed("left") 
+          && d3.event.x < deltaX + deltaW
+          && d3.event.x >= outer.xScale(minDay)+outer.margin.left)
         {
             d3.select(this)
             .attr("x", d3.event.x)
             .attr("width", (deltaW+deltaX) - d3.event.x);
         }
-        else if(d3.select(this).classed("right") && d3.event.x > deltaX)
+        else if(d3.select(this).classed("right") 
+          && d3.event.x > deltaX
+          && d3.event.x <= outer.xScale(maxDay)+outer.margin.left)
         {
             d3.select(this)
             .attr("x",deltaX)
@@ -125,7 +133,6 @@ export class GanttChartComponent implements OnInit{
       }
 
       function dragEnd() {
-        console.log(this);
         deltaX =  Number(d3.select(this).attr("x"));
         deltaW =  Number(d3.select(this).attr("width"));
 
@@ -149,25 +156,10 @@ export class GanttChartComponent implements OnInit{
 
           outer.setMaxDate(task);
         }
-
-        console.log("Start : ", parseDate(xScale.invert(deltaX)));
-        console.log("End : ", parseDate(xScale.invert(deltaX+deltaW)));
-
-        // setTimeout(callback, 1000); 
- 
-        // function callback() {
-            // outer.updateChart();
-        // }
-
-        outer.updateChart();
       }
 
       dragHandler(rectangle);
     }
-  }
-
-  updateChart() {
-
   }
 
   setMinDate(task) {

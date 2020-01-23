@@ -1,9 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
 import { faPlusSquare, faTrashAlt, faCaretRight } from '@fortawesome/free-solid-svg-icons';
-import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
-// import * as d3 from 'd3';
-import * as $ from 'jquery';
-
 
 @Component({
   selector: 'app-show-gantt',
@@ -34,9 +30,6 @@ export class ShowGanttComponent implements OnInit {
 
 
   ngOnInit() {
-    // $(document).ready(function() {
-    //   $(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
-    // });
   }
 
   tableHead = [
@@ -83,4 +76,8 @@ export class ShowGanttComponent implements OnInit {
     this.maxDate.emit(task);
   }
 
+  ngOnChanges() {
+    console.log("Changes");
+    debugger;
+  }
 }

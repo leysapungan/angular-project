@@ -3,6 +3,7 @@ import { ShowTableComponent } from './show-table.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { TaskService } from '../task.service';
+import { NgbDate, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('ShowTableComponent', () => {
   let component: ShowTableComponent;
@@ -10,7 +11,7 @@ describe('ShowTableComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports:[FormsModule,FontAwesomeModule],
+      imports:[FormsModule,FontAwesomeModule,NgbModule],
       declarations: [ ShowTableComponent ]
     })
     .compileComponents();

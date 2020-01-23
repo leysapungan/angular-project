@@ -14,8 +14,8 @@
   <div class="my-4">
     <button class="checkListBtn btn btn-primary mr-3" type="button" (click)="showComponent = 0">Check List</button>
     <button class="showTableBtn btn btn-primary mr-3" type="button" (click)="showComponent = 1">Table</button>
-    <button class="showGanttBtn btn btn-primary" type="button" (click)="showComponent = 2">Gantt Chart</button>
-    <button class="showMatrixBtn btn btn-primary" type="button" (click)="showComponent = 3">Matrix</button>
+    <button class="showGanttBtn btn btn-primary mr-3" type="button" (click)="showComponent = 2">Gantt Chart</button>
+    <button class="showMatrixBtn btn btn-primary mr-3" type="button" (click)="showComponent = 3">Matrix</button>
     <!-- <nav class="navbar navbar">
       <a routerLink="/checklist" routerLinkActive="active">Check List</a>
       <a routerLink="/table" routerLinkActive="active">Table</a>
@@ -71,7 +71,8 @@
 
   <div class = "showMatrix" *ngIf = "showComponent == 3">
     <app-show-matrix
-      [tasks] = "tasklist">
+      [tasks] = "tasklist"
+      [chooseLevel]="chooseLevel">
     </app-show-matrix>
   </div>
 </div>

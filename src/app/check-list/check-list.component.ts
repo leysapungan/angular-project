@@ -42,8 +42,7 @@ export class CheckListComponent implements OnInit {
     return this.tasklist;
   }
 
-  changeTasks(task, opt, event) {
-    console.log(event.currentTarget.className);
+  changeTasks(task: Task, opt, event): void {
     var className = event.currentTarget.className;
     this.taskChange.emit({task, opt, className});
   }

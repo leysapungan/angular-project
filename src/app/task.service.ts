@@ -294,7 +294,6 @@ export class TaskService {
 
   checkParentStatus(task, origStatus)
   {
-    console.log("checkParentStatus:", task.name, task.status, origStatus);
     var check = 0;
     for (var i in task.subTask)
     {
@@ -324,7 +323,6 @@ export class TaskService {
 
 
   editTask(task, newValue) : void {
-    console.log(newValue);
     task.name = newValue;
     task.editing = false;
   }

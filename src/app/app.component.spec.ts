@@ -6,6 +6,11 @@ import { ShowTableComponent } from './show-table/show-table.component';
 
 import { RouterModule } from '@angular/router';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { TaskService } from './task.service';
+import { GanttChartComponent } from './gantt-chart/gantt-chart.component';
+import { ShowMatrixComponent } from './show-matrix/show-matrix.component';
+import { ShowGanttComponent } from './show-gantt/show-gantt.component';
+import { CheckListComponent } from './check-list/check-list.component';
 
 
 
@@ -16,8 +21,16 @@ describe('AppComponent', () => {
         RouterModule,FormsModule,FontAwesomeModule
       ],
       declarations: [
-        AppComponent,ShowTableComponent
+        AppComponent,
+        ShowTableComponent,
+        GanttChartComponent,
+        ShowMatrixComponent,
+        ShowGanttComponent,
+        CheckListComponent
       ],
+      providers: [
+        TaskService
+      ]
       
     }).compileComponents();
   }));
