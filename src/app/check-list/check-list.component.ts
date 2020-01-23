@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Task } from '../task';
 import { faPlusSquare, faTrashAlt, faEdit, faSave, faTimes } from '@fortawesome/free-solid-svg-icons';
-
 import { TaskService } from '../task.service';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-check-list',
   templateUrl: './check-list.component.html',
@@ -27,8 +29,13 @@ export class CheckListComponent implements OnInit {
   selectedTask: Task;
   // chooseLevel = 2;
   
-  constructor() { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private service: TaskService
+  ) { }
   ngOnInit() {
+    
   }
   
   getCheckList() {

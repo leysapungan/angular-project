@@ -1,0 +1,13 @@
+.d3-matrix {
+    width: 1000px;
+    height: 500px;
+}
+
+.d3-matrix .axis path,
+  .d3-matrix .axis line {
+    stroke: #999;
+  }
+  
+  .d3-matrix .axis text {
+    fill: #999;
+  }

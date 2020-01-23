@@ -15,6 +15,13 @@
     <button class="checkListBtn btn btn-primary mr-3" type="button" (click)="showComponent = 0">Check List</button>
     <button class="showTableBtn btn btn-primary mr-3" type="button" (click)="showComponent = 1">Table</button>
     <button class="showGanttBtn btn btn-primary" type="button" (click)="showComponent = 2">Gantt Chart</button>
+    <button class="showMatrixBtn btn btn-primary" type="button" (click)="showComponent = 3">Matrix</button>
+    <!-- <nav class="navbar navbar">
+      <a routerLink="/checklist" routerLinkActive="active">Check List</a>
+      <a routerLink="/table" routerLinkActive="active">Table</a>
+      <a routerLink="/gantt" routerLinkActive="active">Gantt Chart</a>
+    </nav> -->
+    
   </div>
 
 
@@ -30,7 +37,10 @@
     </select>
   </div>
 
-  <div class = "showCheckList" *ngIf="showComponent == 0">
+  <!-- <router-outlet></router-outlet> -->
+
+
+  <div class = "showCheckList" *ngIf = "showComponent == 0">
     <app-check-list
       [tasks]="tasklist"
       [chooseLevel]="chooseLevel"
@@ -49,35 +59,22 @@
   </div>
 
   <div class = "showGantt" *ngIf = "showComponent == 2">
-    <app-show-gantt></app-show-gantt>
+    <app-show-gantt
+      [tasks]="tasklist"
+      [chooseLevel]="chooseLevel"
+      (taskChange)="functionsOnChange($event)"
+      (taskStatus)="checkStatus($event)"
+      (minDate)="setMinDate($event)"
+      (maxDate)="setMaxDate($event)">
+    </app-show-gantt>
+  </div>
+
+  <div class = "showMatrix" *ngIf = "showComponent == 3">
+    <app-show-matrix
+      [tasks] = "tasklist">
+    </app-show-matrix>
   </div>
 </div>
-<!-- <h1>{{title}}</h1> -->
 
 
-    <!-- <div class="row">
-        <div class="col-6">
-            <app-check-list
-                [tasks]="tasklist"
-                (taskChange)="functionsOnChange($event)"
-                (taskStatus)="checkStatus($event)">
-            </app-check-list>
-        </div>
-
-        <div class="col-6">
-            <app-show-table
-                [tasks]="tasklist"
-                (taskChange)="functionsOnChange($event)"
-                (taskStatus)="checkStatus($event)">
-            </app-show-table>
-        </div>
-    </div> -->
-
-    <!-- <app-show-table
-        [tasks]="tasklist"
-        (taskChange)="functionsOnChange($event)"
-        (taskStatus)="checkStatus($event)">
-    </app-show-table> -->
-
-
-
+  

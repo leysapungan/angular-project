@@ -1,2 +1,152 @@
-<ngx-gantt-chart [width]="1100"
-[data]="ganttChartData" colorScheme="cool"></ngx-gantt-chart>
+<script>
+    $(document).ready(function() {
+        $('tbody').scroll(function(e) { 
+        $('thead').css("left", -$("tbody").scrollLeft()); //fix the thead relative to the body scrolling
+        $('thead th:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first cell of the header
+        $('tbody td:nth-child(1)').css("left", $("tbody").scrollLeft()); //fix the first column of tdbody
+        });
+});
+
+</script>
+
+<!-- <div class="Gantt-Chart" style="overflow:auto;"> -->
+<div class="Gantt-Chart">
+
+
+    <button type="button" class="addMainBtn" (click)="changeTasks(null, null, $event)">Add New Task</button>
+    <br><br>
+
+    <!-- <div id="table-scroll" class="table-scroll">
+        <div class="table-wrap"> -->
+            <table class="main-table table-bordered">
+                <thead>
+                    <tr>
+                        <th class="fixed-side">List</th>
+                        <th class="fixed-side">Actions</th>
+                        <th>
+                            <app-gantt-chart
+                                [header] = "true">
+                            </app-gantt-chart>
+                        </th>
+                        
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <ng-container *ngTemplateOutlet="checkList; context:{$implicit:tasklist}"></ng-container>
+
+                    <ng-template #checkList let-list>
+                        <ng-container *ngFor="let task of list">
+                            <tr [ngClass]="{'finishedTaskCol' : task.status === true}">
+                                <td class="listData fixed-side">
+
+                                    <!-- Display arrow and space if subtask -->
+                                    <ng-container *ngFor="let arrow of arrayArrow(task.level); let i = index;">
+                                        &nbsp;&nbsp;
+                                        <ng-container *ngIf="i == task.level-1">
+                                            <fa-icon [icon]="faCaretRight"></fa-icon>
+                                        </ng-container>
+                                        &nbsp;
+                                    </ng-container>
+
+                                    <input class="customCheckBox" type="checkbox" [(ngModel)]="task.status" (ngModelChange)="compTask(task)">
+                                    <label class="align-middle m-0" [ngClass]="{'finishedTask' : task.status === true}">
+                                        {{task.name}}
+                                    </label>
+                                </td>
+                                <td class="fixed-side">
+                                    <!-- Hide add button, if lastest level -->
+                                    <span *ngIf="task.level < getLevelValue()">
+                                        <button class="addBtn" type="button" (click)="changeTasks(task, null, $event)">
+                                            <fa-icon class="fa-fw align-middle" [icon]="faPlusSquare"></fa-icon></button>
+                                    </span>
+
+                                    <button class="delBtn" type="button" (click)="changeTasks(task, list, $event)">
+                                        <fa-icon class="fa-fw align-middle" [icon]="faTrashAlt"></fa-icon></button>
+                                </td>
+                                <td colspan="12" class="ganttData">
+                                    <app-gantt-chart
+                                        [task] = task
+                                        (minDate) = setMinDate(task)
+                                        (maxDate) = setMaxDate(task)>
+                                    </app-gantt-chart>
+                                </td>
+                            </tr>
+
+                            <ng-template [ngIf]="task.subTask && task.level < getLevelValue()">
+                                <ng-container *ngTemplateOutlet="checkList; context:{$implicit:task.subTask}">&nbsp;</ng-container>
+                            </ng-template>
+                        </ng-container>
+                    </ng-template>
+
+                </tbody>
+            </table>
+        <!-- </div>
+    </div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- <ng-container *ngFor="let mainTask of tasklist">
+        <table class="table table-bordered">
+            <tbody>
+                <tr [ngClass]="{'finishedTaskCol' : mainTask.status === true}">
+                    <td class="listData">
+                        <input class="customCheckBox" type="checkbox" [(ngModel)]="mainTask.status" (ngModelChange)="compTask(mainTask)">
+                        <label class="align-middle m-0" [ngClass]="{'finishedTask' : mainTask.status === true}">
+                            {{mainTask.name}}
+                        </label>
+                    </td>
+                    <td class="ganttData">
+                        {{this.calDay(mainTask.attributes[0].startDate, mainTask.attributes[0].endDate)}}
+                    </td>
+                </tr>
+
+                <ng-template [ngIf]="mainTask.subTask && mainTask.level < getLevelValue()">
+                    <ng-container *ngTemplateOutlet="subList; context:{$implicit:mainTask.subTask}"></ng-container>
+
+                    <ng-template #subList let-subTasks>
+                        <ng-container *ngFor="let sub of subTasks">
+                            <tr mdbTableCol [ngClass]="{'finishedTaskCol' : sub.status === true}">
+                                <td class="listData">
+
+                                    <ng-container *ngFor="let arrow of arrayArrow(sub.level); let i = index;">
+                                        &nbsp;&nbsp;
+                                        <ng-container *ngIf="i == sub.level-1">
+                                            <fa-icon [icon]="faCaretRight"></fa-icon>
+                                        </ng-container>
+                                        &nbsp;
+                                    </ng-container>
+    
+                                    <input class="customCheckBox" type="checkbox" [(ngModel)]="sub.status" (ngModelChange)="compTask(sub)">
+                                    <label class="align-middle m-0" [ngClass]="{'finishedTask' : sub.status === true}">
+                                        {{sub.name}}
+                                    </label>
+                                </td>
+                                <td class="ganttData">
+
+                                </td>
+                            </tr>
+
+                            <ng-template [ngIf]="sub.subTask && sub.level < getLevelValue()">
+                                    <ng-container *ngTemplateOutlet="subList; context:{$implicit:sub.subTask}">&nbsp;</ng-container>
+                                </ng-template>
+                        </ng-container>
+                    </ng-template>
+                </ng-template>
+
+            </tbody>
+        </table>
+    </ng-container> -->
+
+
+</div>

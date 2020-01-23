@@ -1,4 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import { faPlusSquare, faTrashAlt, faCaretRight } from '@fortawesome/free-solid-svg-icons';
+import { NgbDateStruct } from '@ng-bootstrap/ng-bootstrap';
+// import * as d3 from 'd3';
+import * as $ from 'jquery';
+
 
 @Component({
   selector: 'app-show-gantt',
@@ -7,73 +12,75 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowGanttComponent implements OnInit {
 
+  @Input('tasks') tasklist: any[];
+  @Input ('chooseLevel') chooseLevel;
+  
+  @Output('taskChange') taskChange = new EventEmitter();
+  @Output('taskStatus') taskStatus = new EventEmitter();
+
+  @Output('minDate') minDate = new EventEmitter();
+  @Output('maxDate') maxDate = new EventEmitter();
+
+  faPlusSquare = faPlusSquare;
+  faTrashAlt = faTrashAlt;
+  faCaretRight = faCaretRight;
+
+
+  dateModel;
+
+  result: object;
+
   constructor() { }
 
-  ganttChartData = [
-    {
-      name: 'Market Team',
-      timelines: {
-        'Market Research': [
-          {from: 'June 9, 2019', to: 'July 20, 2019', info: 'wtv'},
-          {from: 'October 9, 2019', to: 'November 20, 2019', info: 'wtv'}
-        ],
-        'User Documentation': [
-          {from: 'August 10, 2019', to: 'September 15, 2019', info: 'wtv'}
-        ]
-      }
-    },
-    {
-      name: 'Development Team',
-      timelines: {
-        'Software Development': [
-          {from: 'July 9, 2019', to: 'October 20, 2019', info: 'wtv'}
-        ],
-        'Testing': [
-          {from: 'October 25, 2019', to: 'November 15, 2019', info: 'wtv'}
-        ],
-        'User Documentation': [
-          {from: 'August 1, 2019', to: 'August 15, 2019', info: 'wtv'}
-        ]
-      }
-    },
-    {
-      name: 'Test Team A',
-      timelines: {
-        'Testing': [
-          {from: 'August 1, 2019', to: 'August 15, 2019', info: 'wtv'}
-        ]
-      }
-    },
-    {
-      name: 'Test Team B',
-      timelines: {
-        'Testing': [
-          {from: 'August 15, 2019', to: 'August 30, 2019', info: 'wtv'}
-        ]
-      }
-    },
-    {
-      name: 'Sales Team',
-      timelines: {
-        'Pitching': [
-          {from: 'July 9, 2019', to: 'October 20, 2019', info: 'wtv'}
-        ],
-        'Sales': [
-          {from: 'October 25, 2019', to: 'November 15, 2019', info: 'wtv'}
-        ]
-      }
-    },
-    {
-      name: 'Planning Team',
-      timelines: {
-        'Planning': [
-          {from: 'May 9, 2019', to: 'May 30, 2019', info: 'wtv'}
-        ]
-      }
-    }
-  ];
 
   ngOnInit() {
+    // $(document).ready(function() {
+    //   $(".main-table").clone(true).appendTo('#table-scroll').addClass('clone');   
+    // });
+  }
+
+  tableHead = [
+    'Check List',
+    'Actions',
+    'Gantt Chart'
+  ];
+
+  arrayArrow(n: number): any[] {
+    return Array(n);
+  }
+
+  getLevelValue()
+  {
+    return this.chooseLevel;
+  }
+
+  changeTasks(task, opt, event) {
+    console.log(event.type);
+    var className="";
+    if(!event.type)
+    {
+      className = event;
+    }
+    else
+    {
+      className = event.currentTarget.className;
+    }
+    
+    this.taskChange.emit({task, opt, className});
+  }
+
+  compTask(task) :void {
+    if(!task)
+      return;
+      this.taskStatus.emit(task);
+  }
+
+  setMinDate(task) {
+    this.minDate.emit(task);
+  }
+
+  setMaxDate(task) {
+    this.maxDate.emit(task);
   }
 
 }

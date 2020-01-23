@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TaskService } from './task.service';
+
+import * as $ from 'jquery';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
-  
+  chartData: Array<any>;
 
   title = 'Check List';
   public tasklist: any[] = [];
@@ -50,5 +52,15 @@ export class AppComponent {
   {
     this.chooseLevel = value;
   }
+
+  setMinDate(task) {
+    this.taskService.setMinDate(task);
+  }
+
+  setMaxDate(task) {
+    this.taskService.setMaxDate(task);
+  }
+
+  ngOnInit(){ }
 
 }

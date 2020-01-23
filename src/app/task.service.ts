@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Task } from './task';
+import * as d3 from 'd3';
 
 
 
@@ -7,42 +8,51 @@ var CheckList: Task[] = [
   {
       id:1,
       level:0,
-      name:'1',
+      name:'Checklist',
       status:false,
       hidden:false,
+      importance:9,
       attributes:[
       {
-          startDate:'2019-11-01',
-          endDate:'2019-11-05',
-          assignee:['AA','BB']
+          startDate:'2020-01-02',
+          endDate:'2020-02-28',
+          assignee:['Harley','Leah', 'Bimal', 'Gagan'],
+          minDate:'2020-01-02',
+          maxDate:'2020-02-28'
       }
       ],
       subTask:[
       {
           id:1,
           level:1,
-          name:'1-1',
+          name:'Create checklist',
           status:false,
           hidden:false,
+          importance:8,
           attributes:[
           {
-              startDate:'2019-11-01',
-              endDate:'2019-11-05',
-              assignee:['AA','BB']
+              startDate:'2020-01-03',
+              endDate:'2020-01-20',
+              assignee:['Harley','Leah'],
+              minDate:'2020-01-02',
+              maxDate:'2020-02-28'
           }
           ],
           subTask:[
           {
               id:1,
               level:2,
-              name:'1-1-1',
+              name:'Delete item',
               status:true,
               hidden:false,
+              importance:3,
               attributes:[
               {
-                  startDate:'2019-11-01',
-                  endDate:'2019-11-05',
-                  assignee:['AA','BB']
+                  startDate:'2020-01-07',
+                  endDate:'2020-01-15',
+                  assignee:['Leah'],
+                  minDate:'2020-01-03',
+                  maxDate:'2020-01-20'
               }
               ],
               subTask:null
@@ -50,43 +60,34 @@ var CheckList: Task[] = [
           {
               id:2,
               level:2,
-              name:'1-1-2',
+              name:'Display list',
               status:false,
               hidden:false,
+              importance:5,
               attributes:[
               {
-                  startDate:'2019-11-01',
-                  endDate:'2019-11-05',
-                  assignee:['AA','BB']
-              }
-              ],
-              subTask:null
-          },
-          {
-              id:3,
-              level:2,
-              name:'1-1-3',
-              status:false,
-              hidden:false,
-              attributes:[
-              {
-                  startDate:'2019-11-01',
-                  endDate:'2019-11-05',
-                  assignee:['AA','BB']
+                  startDate:'2020-01-10',
+                  endDate:'2020-01-18',
+                  assignee:['Leah', 'Harley'],
+                  minDate:'2020-01-03',
+                  maxDate:'2020-01-20'
               }
               ],
               subTask:[
               {
                   id:1,
                   level:3,
-                  name:'1-1-3-1',
+                  name:'Design',
                   status:false,
                   hidden:false,
+                  importance:1,
                   attributes:[
                   {
-                      startDate:'2019-11-01',
-                      endDate:'2019-11-05',
-                      assignee:['AA','BB']
+                      startDate:'2020-01-13',
+                      endDate:'2020-01-15',
+                      assignee:['Harley'],
+                      minDate:'2020-01-10',
+                      maxDate:'2020-01-18'
                   }
                   ],
                   subTask:null
@@ -98,29 +99,17 @@ var CheckList: Task[] = [
       {
           id:2,
           level:1,
-          name:'1-2',
+          name:'Testing',
           status:false,
           hidden:false,
+          importance:3,
           attributes:[
           {
-              startDate:'2019-11-01',
-              endDate:'2019-11-05',
-              assignee:['AA','BB']
-          }
-          ],
-          subTask:null
-      },
-      {
-          id:3,
-          level:1,
-          name:'1-3',
-          status:false,
-          hidden:false,
-          attributes:[
-          {
-              startDate:'2019-11-01',
-              endDate:'2019-11-05',
-              assignee:['AA','BB']
+              startDate:'2020-01-05',
+              endDate:'2020-01-23',
+              assignee:['Gagan', 'Bimal'],
+              minDate:'2020-01-02',
+              maxDate:'2020-02-28'
           }
           ],
           subTask:null
@@ -130,33 +119,20 @@ var CheckList: Task[] = [
       {
       id:2,
       level:0,
-      name:'2',
+      name:'Create table',
       status:false,
       hidden:false,
+      importance:7,
       attributes:[
       {
-          startDate:'2019-11-01',
-          endDate:'2019-11-05',
-          assignee:['AA','BB']
+          startDate:'2020-01-16',
+          endDate:'2020-01-21',
+          assignee:['Harley','Leah', 'Bimal', 'Gagan'],
+          minDate:'2020-01-05',
+          maxDate:'2020-01-23'
       }
       ],
-      subTask:[
-      {
-          id:1,
-          level:1,
-          name:'2-1',
-          status:false,
-          hidden:false,
-          attributes:[
-          {
-              startDate:'2019-11-01',
-              endDate:'2019-11-05',
-              assignee:['AA','BB']
-          }
-          ],
-          subTask:null
-      }
-    ]
+      subTask:null
   }
 ];
 
@@ -188,17 +164,24 @@ export class TaskService {
         newId = this.checklist[this.checklist.length-1].id + 1;
       }
 
+      var today = d3.timeDay(new Date);
+      var endDay = d3.timeDay.offset(today, 7);
+      var parseDate = d3.timeFormat("%Y-%m-%d");
+
       var newTask = {
         id:newId,
         level:0,
-        name:""+newId,
+        name:"New task",
         status:false,
         hidden:false,
+        importance:2,
         attributes:[
           {
-            startDate:null,
-            endDate:null,
-            assignee:null
+            startDate:parseDate(today),
+            endDate:parseDate(endDay),
+            assignee:null,
+            minDate:parseDate(today),
+            maxDate:parseDate(endDay)
           }
         ],
         subTask:null,
@@ -227,17 +210,23 @@ export class TaskService {
         newSubId = sub[sub.length-1].id + 1;
       }
 
+      var subStartDate:string = task.attributes[0].startDate;
+      var subEndDate:string = task.attributes[0].endDate;
+      
       var newTask = {
         id:newSubId,
         level:parseInt(task.level)+1,
-        name:task.name+"-"+newSubId,
+        name:'New task',
         status:false,
         hidden:false,
+        importance:1,
         attributes:[
           {
-            startDate:null,
-            endDate:null,
-            assignee:null
+            startDate:subStartDate,
+            endDate:subEndDate,
+            assignee:null,
+            minDate:subStartDate,
+            maxDate:subEndDate
           }
         ],
         subTask:null
@@ -333,50 +322,60 @@ export class TaskService {
     }
   }
 
-  /* */
-  // checkParentStatus(list, tmp)
-  // {
-  //   list.forEach(function iter(item) {
-  //     if(item.subTask)
-  //     {
-  //       var inputCheckBox = (item).closest(".children").siblings("input[type=checkbox]");
-  //     }
-  //     item.subTask && item.subTask.forEach(iter);
-  //   });
-  // }
-
-  // decideParentsValue(me) {
-  //   var shouldTraverseUp = false;
-  //   var checkedCount = 0;
-  //   var myValue = me.status;
-
-  //   //inspect my siblings to decide parents value
-  //   $.each($(me).closest(".children").children('li'), function() {
-  //     var checkbox = $(this).children("input[type=checkbox]");
-  //     if ($(checkbox).prop("checked")) {
-  //       checkedCount = checkedCount + 1;
-  //     }
-  //   });
-
-  //   //if I am checked and my siblings are also checked do nothing
-  //   //OR
-  //   //if I am unchecked and my any sibling is checked do nothing
-  //   if ((myValue == true && checkedCount == 1) || (myValue == false && checkedCount == 0)) {
-  //     shouldTraverseUp = true;
-  //   }
-  //   if (shouldTraverseUp == true) {
-  //     var inputCheckBox = $(me).closest(".children").siblings("input[type=checkbox]");
-  //     inputCheckBox.prop("checked", me.prop("checked"));
-  //     decideParentsValue(inputCheckBox);
-  //   }
-
-  // }
-/* */
 
   editTask(task, newValue) : void {
     console.log(newValue);
     task.name = newValue;
     task.editing = false;
+  }
+
+  setMinDate(task) {
+    var subTask = task.subTask;
+    if(!subTask)
+    {
+      return;
+    }
+
+    for (var i in subTask)
+    {
+      var start = new Date(task.attributes[0].startDate);
+      var subStart = new Date(subTask[i].attributes[0].startDate);
+      
+      if(d3.timeDay.count(start, subStart) < 0)
+      {
+        subTask[i].attributes[0].startDate = task.attributes[0].startDate;
+        subTask[i].attributes[0].minDate = task.attributes[0].startDate;
+
+        if(subTask[i].subTask)
+        {
+          this.setMinDate(subTask[i]);
+        }
+      } 
+    }
+  }
+
+  setMaxDate(task) {
+    var subTask = task.subTask;
+    
+    if(!subTask)
+    {
+      return;
+    }
+    for (var i in subTask)
+    {
+      var end = new Date(task.attributes[0].endDate);
+      var subEnd = new Date(subTask[i].attributes[0].endDate);
+      if(d3.timeDay.count(end, subEnd) < 0)
+      {
+        subTask[i].attributes[0].endDate = task.attributes[0].endDate;
+        subTask[i].attributes[0].maxDate = task.attributes[0].endDate;
+
+        if(subTask[i].subTask)
+        {
+          this.setMaxDate(subTask[i]);
+        }
+      }
+    }
   }
 
 
