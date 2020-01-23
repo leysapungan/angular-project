@@ -1,0 +1,8 @@
+<div class = "showCheckList">
+    <app-check-list
+        [tasks]="tasklist"
+        [chooseLevel]="getLevel()"
+        (taskChange)="functionsOnChange($event)"
+        (taskStatus)="checkStatus($event)">
+    </app-check-list>
+</div>

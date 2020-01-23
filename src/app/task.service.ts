@@ -146,6 +146,11 @@ export class TaskService {
 
   checklist = CheckList;
   selectedTask: Task;
+  chooseLevel;
+
+  getLevel() {
+    return this.chooseLevel;
+  }
 
   getCheckList() {
     return this.checklist;

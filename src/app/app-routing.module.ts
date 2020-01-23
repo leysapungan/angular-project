@@ -1,15 +1,18 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { TablePageComponent } from './table-page/table-page.component';
+import { ListPageComponent } from './list-page/list-page.component';
+import { GanttPageComponent } from './gantt-page/gantt-page.component';
+import { MatrixPageComponent } from './matrix-page/matrix-page.component';
 
-import { CheckListComponent } from './check-list/check-list.component';
-import {ShowTableComponent} from './show-table/show-table.component';
-import {ShowGanttComponent} from './show-gantt/show-gantt.component';
+
 
 
 const appRoutes: Routes = [
-  { path: 'checklist', component: CheckListComponent },
-  {path: 'table', component: ShowTableComponent},
-  {path: 'gantt', component: ShowGanttComponent}
+  { path: 'checklist', component: ListPageComponent },
+  {path: 'table', component: TablePageComponent},
+  {path: 'gantt', component: GanttPageComponent},
+  {path: 'matrix', component: MatrixPageComponent}
 ];
 
 @NgModule({

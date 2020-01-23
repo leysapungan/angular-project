@@ -1,0 +1,25 @@
+
+<nav class="navbar navbar">
+    <a routerLink="/checklist" routerLinkActive="active">Check List</a>
+    <a routerLink="/table" routerLinkActive="active">Table</a>
+    <a routerLink="/gantt" routerLinkActive="active">Gantt Chart</a>
+    <a routerLink="/matrix" routerLinkActive="active">Eisenhower Matrix</a>
+</nav>
+
+<br><br>
+
+<div class="comboBox mb-4">
+    Choose level :
+    <select class="chooseLevel" (change)="changeComboBox($event.target.value)" [(ngModel)]="chooseLevel">
+        <option value="0">Level 0</option>
+        <option value="1">Level 1</option>
+        <option value="2">Level 2</option>
+        <option value="3">Level 3</option>
+        <option value="4">Level 4</option>
+        <option value="5">Level 5</option>
+    </select>
+</div>
+
+<br><br>
+
+<router-outlet></router-outlet>

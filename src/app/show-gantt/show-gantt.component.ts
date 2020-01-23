@@ -77,7 +77,5 @@ export class ShowGanttComponent implements OnInit {
   }
 
   ngOnChanges() {
-    console.log("Changes");
-    debugger;
   }
 }

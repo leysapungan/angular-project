@@ -34,8 +34,9 @@ export class CheckListComponent implements OnInit {
     private router: Router,
     private service: TaskService
   ) { }
+  
   ngOnInit() {
-    
+
   }
   
   getCheckList() {

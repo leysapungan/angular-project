@@ -1,0 +1,10 @@
+<div class = "showGantt">
+    <app-show-gantt
+        [tasks]="tasklist"
+        [chooseLevel]="getLevel()"
+        (taskChange)="functionsOnChange($event)"
+        (taskStatus)="checkStatus($event)"
+        (minDate)="setMinDate($event)"
+        (maxDate)="setMaxDate($event)">
+    </app-show-gantt>
+</div>

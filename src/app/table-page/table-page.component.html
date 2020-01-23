@@ -1,0 +1,8 @@
+<div class = "showTable">
+    <app-show-table
+        [tasks]="tasklist"
+        [chooseLevel]="getLevel()"
+        (taskChange)="functionsOnChange($event)"
+        (taskStatus)="checkStatus($event)">
+    </app-show-table>
+</div>

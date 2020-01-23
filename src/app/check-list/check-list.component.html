@@ -1,15 +1,3 @@
-<!-- <div class="comboBox">
-    Choose level :
-    <select class="chooseLevel" (change)="changeComboBox($event.target.value)" [(ngModel)]="chooseLevel">
-        <option value="0">Level 0</option>
-        <option value="1">Level 1</option>
-        <option value="2">Level 2</option>
-        <option value="3">Level 3</option>
-        <option value="4">Level 4</option>
-        <option value="5">Level 5</option>
-    </select>
-</div>
-<br> -->
 
 <div class="row">
     <div class="col-8">
@@ -59,11 +47,11 @@
         <button type="button" class="addMainBtn" (click)="changeTasks(null, null, $event)">Add New Task</button>
     </div>
 
-    <div class="col-4">
+    <!-- <div class="col-4">
         <div *ngIf="selectedTask">
             <app-task-detail [task]="selectedTask"></app-task-detail>
         </div>
-    </div>
+    </div> -->
 </div>
 
 
