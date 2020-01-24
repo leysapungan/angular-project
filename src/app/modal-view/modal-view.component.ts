@@ -14,7 +14,7 @@ export class ModalViewComponent implements OnInit {
   constructor(public activeModal: NgbActiveModal) { }
 
 
-  addNewName(value)
+  addNewName(value) //add new assignee
   {
     if(!value)
       return;

@@ -1,18 +1,5 @@
 <div class="CheckList-Table">
 
-    <!-- <div class="comboBox">
-        Choose level :
-        <select class="chooseLevel" (change)="changeComboBox($event.target.value)" [(ngModel)]="chooseLevel">
-            <option value="0">Level 0</option>
-            <option value="1">Level 1</option>
-            <option value="2">Level 2</option>
-            <option value="3">Level 3</option>
-            <option value="4">Level 4</option>
-            <option value="5">Level 5</option>
-        </select>
-    </div>
-    <br><br> -->
-
     <button type="button" class="addMainBtn" (click)="changeTasks(null, null, $event)">Add New Task</button>
     <br><br>
 
@@ -68,8 +55,6 @@
                                     <fa-icon class="fa-fw align-middle" [icon]="faPlusSquare"></fa-icon></button>
                             </span>
 
-                            <!-- <button class="editBtn" type="button" (click)="task.editing=true">
-                                <fa-icon class="fa-fw align-middle" [icon]="faEdit"></fa-icon></button> -->
                             <button class="delBtn" type="button" (click)="changeTasks(task, list, $event)">
                                 <fa-icon class="fa-fw align-middle" [icon]="faTrashAlt"></fa-icon></button>
                         </td>
@@ -108,9 +93,7 @@
                             </div>
                         </td>
                         <td (dblclick)="openModalView(task)">
-                            <!-- <div class="view" *ngIf="!task.editing || (editIdx != editAssignee)"> -->
-                                <span class="align-middle">{{task.attributes[0].assignee}}</span>
-                            <!-- </div> -->
+                            <span class="align-middle">{{task.attributes[0].assignee}}</span>
                         </td>
                     </tr>
 

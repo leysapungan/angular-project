@@ -26,8 +26,6 @@ export class ShowTableComponent implements OnInit {
   faCaretRight = faCaretRight;
   faCalendarAlt = faCalendarAlt;
 
-  // chooseLevel = 2;
-
   editIdx = 0;
   editName = 1;
   editStartDate = 2;
@@ -38,7 +36,6 @@ export class ShowTableComponent implements OnInit {
 
   result: object;
 
-  
   constructor(private modalService: NgbModal) { }
 
   ngOnInit() {
@@ -60,11 +57,6 @@ export class ShowTableComponent implements OnInit {
   {
     return this.chooseLevel;
   }
-
-  // changeComboBox(value)
-  // {
-  //   this.chooseLevel = value;
-  // }
 
 
   changeTasks(task, opt, event) {
@@ -114,7 +106,6 @@ export class ShowTableComponent implements OnInit {
     {
       this.editIdx = this.editEndDate;
     }
-   
   }
 
   dbClickAssignee(task)
@@ -124,7 +115,8 @@ export class ShowTableComponent implements OnInit {
     this.editIdx = this.editAssignee;
   }
 
-  openModalView(task)
+
+  openModalView(task) //edit assignee
   {
     const modalRef = this.modalService.open(ModalViewComponent);
     modalRef.componentInstance.modalTask = task;
@@ -136,7 +128,6 @@ export class ShowTableComponent implements OnInit {
         console.log("error : ", error);
     });
   }
-
 
 
   setEditing(task, list)

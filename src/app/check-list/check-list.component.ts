@@ -27,14 +27,13 @@ export class CheckListComponent implements OnInit {
   
 
   selectedTask: Task;
-  // chooseLevel = 2;
   
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private service: TaskService
   ) { }
-  
+
   ngOnInit() {
 
   }
@@ -43,44 +42,28 @@ export class CheckListComponent implements OnInit {
     return this.tasklist;
   }
 
+  /* 
+  For add, edit and delete actions.
+  1. opt
+    1-1. for delete : list of task
+    1-2. for edit : new value 
+  2. event : add / edit / delete
+    2-1. event.className : addBtn / addMainBtn / delBtn / saveBtn
+  */
   changeTasks(task: Task, opt, event): void {
     var className = event.currentTarget.className;
     this.taskChange.emit({task, opt, className});
   }
 
-  // addTask(task, event): void {
-  //   this.taskChange.emit(task);
-  //   // this.taskService.addTask(task);
-  //   console.log(event);
-  //   debugger;
-  // }
 
-  // delTask(list, task) :void {
-  //   if (!task) 
-  //     return;
-  //   // this.taskService.delTask(list, task);
-  // }
-
+  /* completed task */
   compTask(task) :void {
     if(!task)
       return;
       this.taskStatus.emit(task);
   }
 
-  // editTask(task, newValue) : void {
-  //   if(!task)
-  //     return;
-  //   // this.taskService.editTask(task, newValue);
-  // }
-
-  // cancelEditTask(task, inputValue) : void {
-  //   if(!task)
-  //     return;
-  //   inputValue.value = task.name;
-  //   // this.taskService.editTask(task, inputValue.value);
-  // }
-
-
+ /* selected task */
   onSelect(task): void {
     this.selectedTask = task;
   }
@@ -89,10 +72,5 @@ export class CheckListComponent implements OnInit {
   {
     return this.chooseLevel;
   }
-
-  // changeComboBox(value)
-  // {
-  //   this.chooseLevel = value;
-  // }
 }
 

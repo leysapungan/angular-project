@@ -3,7 +3,6 @@ import { Task } from './task';
 import * as d3 from 'd3';
 
 
-
 var CheckList: Task[] = [
   {
       id:1,
@@ -326,12 +325,12 @@ export class TaskService {
     }
   }
 
-
   editTask(task, newValue) : void {
     task.name = newValue;
     task.editing = false;
   }
 
+  /* resize date in gantt chart */
   setMinDate(task) {
     var subTask = task.subTask;
     if(!subTask)
@@ -380,6 +379,4 @@ export class TaskService {
       }
     }
   }
-
-
 }

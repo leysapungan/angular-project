@@ -49,10 +49,9 @@ export class GanttChartComponent implements OnInit{
         maxdate = new Date(2020,2,31);
 
         
-        
     this.xScale = d3.scaleTime().domain([mindate, maxdate]).range([0, this.width]);
-
     var xScale = this.xScale;
+
 
     if (this.header)
     {
@@ -84,7 +83,6 @@ export class GanttChartComponent implements OnInit{
       function mouseOver() {
         d3.select(this).style("cursor", "e-resize");
       }
-
 
       var deltaX, deltaW;
       var outer = this;

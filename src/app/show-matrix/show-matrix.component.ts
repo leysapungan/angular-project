@@ -87,10 +87,6 @@ export class ShowMatrixComponent implements OnInit {
                       .attr('transform', `translate(${this.margin.left}, ${this.margin.top + height})`)
                       .call(d3.axisBottom(xScale));
 
-      // var yAxis = this.svg.append('g')
-      //                 .attr('class', 'axis axis-y')
-      //                 .attr('transform',`translate(${this.margin.left}, ${this.margin.top})`)
-      //                 .call(d3.axisLeft(yScale));
       var yAxis = this.svg.append('g')
                       .attr('class', 'axis axis-y')
                       .attr('transform',`translate(${xScale(today)}, ${this.margin.top})`)
