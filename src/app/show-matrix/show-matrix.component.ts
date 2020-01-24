@@ -80,15 +80,20 @@ export class ShowMatrixComponent implements OnInit {
         return 20 + yScale(yValue(d));
       }
 
+      var today = new Date();
 
       var xAxis = this.svg.append('g')
                       .attr('class', 'axis axis-x')
                       .attr('transform', `translate(${this.margin.left}, ${this.margin.top + height})`)
                       .call(d3.axisBottom(xScale));
 
+      // var yAxis = this.svg.append('g')
+      //                 .attr('class', 'axis axis-y')
+      //                 .attr('transform',`translate(${this.margin.left}, ${this.margin.top})`)
+      //                 .call(d3.axisLeft(yScale));
       var yAxis = this.svg.append('g')
                       .attr('class', 'axis axis-y')
-                      .attr('transform',`translate(${this.margin.left}, ${this.margin.top})`)
+                      .attr('transform',`translate(${xScale(today)}, ${this.margin.top})`)
                       .call(d3.axisLeft(yScale));
 
       this.svg.selectAll(".dot")
