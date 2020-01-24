@@ -11,9 +11,11 @@ export class MatrixPageComponent implements OnInit {
   chartData: Array<any>;
 
   public tasklist: any[] = [];
+  chooseLevel = 5;
 
   constructor(private taskService: TaskService){
     this.tasklist = this.taskService.getCheckList();
+    this.taskService.chooseLevel = this.chooseLevel;
   }
 
   getLevel() {
