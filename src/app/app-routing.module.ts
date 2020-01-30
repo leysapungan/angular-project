@@ -9,7 +9,7 @@ import { MatrixPageComponent } from './matrix-page/matrix-page.component';
 
 
 const appRoutes: Routes = [
-  { path: 'checklist', component: ListPageComponent },
+  {path: 'checklist', component: ListPageComponent },
   {path: 'table', component: TablePageComponent},
   {path: 'gantt', component: GanttPageComponent},
   {path: 'matrix', component: MatrixPageComponent}

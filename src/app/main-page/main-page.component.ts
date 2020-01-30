@@ -24,6 +24,7 @@ export class MainPageComponent implements OnInit {
     this.chooseLevel = value;
     this.taskService.chooseLevel = this.chooseLevel;
   }
+  
 
   ngOnInit(){ }
 
